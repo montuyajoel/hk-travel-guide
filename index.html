@@ -57,7 +57,7 @@ select,.switch button,.interactbar input{border-radius:12px}
 .header-weather{max-width:680px;margin:18px 0 0;padding:12px 14px;border:1px solid #e6eaf0;border-radius:16px;background:#f8fafc;color:#17212d}
 .weather-heading{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:10px;letter-spacing:.09em;font-weight:850;color:#667085;margin-bottom:9px}
 .weather-heading #weatherUpdated{font-size:10px;letter-spacing:0;font-weight:600;text-align:right}
-.weather-cities{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.weather-cities{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
 .weather-city{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 8px;background:#fff;border:1px solid #e8edf3;border-radius:12px;padding:9px 11px}
 .weather-city .weather-place{font-size:12px;font-weight:800;color:#3c4b5f}.weather-city .weather-feels{grid-column:1;font-size:11px;color:#596779;font-weight:650}
 .weather-city strong{grid-column:2;grid-row:1/3;font-size:25px;letter-spacing:-.04em;color:#111}
@@ -72,7 +72,7 @@ select,.switch button,.interactbar input{border-radius:12px}
   <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
   <div class="weather-city" id="weatherMacau"><span class="weather-place">Macau</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
  </div>
- <div class="weather-credit">Current temperature · next-hour rain probability · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div>
+ <div class="weather-credit">Hong Kong conditions · Macau is usually similar; check local wind before your ferry · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div>
 </div><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><div class="navlinks" style="justify-content:flex-start;margin-top:18px"><a href="currency.html">HKD ⇄ PHP</a><a href="weather.html">Weather & crowd</a><a href="food.html">Must-try food</a><a href="michelin.html">MICHELIN guide</a><a href="disney.html">Disney playbook</a></div></header>
 <main id="trip">
 <section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
