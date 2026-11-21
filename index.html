@@ -92,6 +92,7 @@ const DAYS=[{"name": "Dec 13 · Arrival & Harbour", "legs": [["Airport → A21 a
 // Restaurant prices are planning estimates per person, not live menu quotes.
 const FOOD = [
  [
+  ["ICHIRAN · Mong Kok","Shop B, G/F, The Beacon, 88 Sai Yee Street, Mong Kok, Kowloon, Hong Kong","Japanese tonkotsu ramen near your hotel. 31 individual counter seats; about a 4-minute walk from Mong Kok MTR Exit E2. Official hours listed as 9:00–05:00; check the shop notice before visiting.","HK$101–200"],
   ["DimDimSum Mong Kok","106 Tung Choi Street, Mong Kok, Hong Kong","Dim sum favourites; convenient for the Ladies' Market area.","HK$80–150"],
   ["Aroy Khao Man Gai","97 Tung Choi Street, Mong Kok, Hong Kong","Thai chicken rice and comforting quick meals near the hotel.","HK$60–100"],
   ["MoA Dining","1/F Hong Kong Museum of Art, 10 Salisbury Road, Tsim Sha Tsui, Hong Kong","A sit-down option by the harbour after Avenue of Stars.","HK$180–350"]
@@ -207,6 +208,7 @@ const PLACE_PHOTOS = {
  "Victoria Peak":"https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg",
  "Star Ferry":"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/b4/29/90/caption.jpg?h=446&s=1&w=674",
  "Senado Square":"https://images.squarespace-cdn.com/content/v1/62f1cb15a2cb083186ccd6d1/6f4f7d53-d9c2-4635-b3c1-764950f0a6a1/unsplash-image-KYNcHUbPIm0.jpg",
+ "ICHIRAN · Mong Kok":"https://ichiran.com/shop/img/mnkk_01.png",
  "Yau Ma Tei":"https://media.timeout.com/images/105294205/1536/1152/image.jpg",
  "Tsim Sha Tsui Clock Tower":"https://www.hkculturalcentre.gov.hk/en/hkcc/common/images/100A/story05.jpg"
 };
@@ -223,7 +225,7 @@ function mapLink(place){
  return 'https://www.google.com/maps/search/?api=1&query='+encoded;
 }
 function renderExtras(i){
- $('food').innerHTML=FOOD[i].map(x=>`<div class="fooditem"><h3>${x[0]}</h3><div class="price">${x[3]} per person (estimate)</div><p>${x[2]}</p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Find restaurant ↗</a></div>`).join('');
+ $('food').innerHTML=FOOD[i].map(x=>`<div class="fooditem">${photo(x[0])}<h3>${x[0]}</h3><div class="price">${x[3]} per person (estimate)</div><p>${x[2]}</p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Find restaurant ↗</a></div>`).join('');
  $('extras').innerHTML=EXTRAS[i].map(x=>`<div class="extraitem">${photo(x[0])}<h3>${x[0]}</h3><p>${x[2]}</p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Open stopover ↗</a></div>`).join('');
 }
 
