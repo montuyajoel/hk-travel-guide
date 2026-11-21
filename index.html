@@ -233,7 +233,7 @@ function renderExtras(i){
 function renderV2(i){
  const d=DAYS[i];
  const main=d.legs.slice(0,Math.min(4,d.legs.length));
- $('smartoverview').innerHTML='<div class="v2pill">Relaxed pace</div><div class="v2pill">'+main.length+' suggested route segments</div><div class="v2line"><b>Today&#39;s focus</b>'+d.name+'</div>'+main.map((x,j)=>'<div class="v2line"><b>'+ (j+1)+'. '+x[0]+'</b>'+x[4]+'</div>').join('')+(d.legs.length>4?'<p class="muted">Extra segments are optional. Consider skipping one if you want a slower day.</p>':'<p class="muted">Keep a flexible meal and rest break between visits.</p>');
+ $('smartoverview').innerHTML='<div class="v2pill">Relaxed pace</div><div class="v2pill">'+main.length+' suggested route segments</div><div class="v2line"><b>Today&#39;s focus</b>'+d.name+'</div>'+main.map((x,j)=>'<div class="v2line"><b>'+ (j+1)+'. '+x[0]+'</b>'+x[4]+'</div>').join('')+(d.legs.length>4?'<p class="muted">Extra segments are optional. Consider skipping one if you want a slower day.</p>':'<p class="muted">Keep a flexible meal and rest break between visits.</p>')+(i===1?'<div class="tip" style="margin-top:12px"><b>🎒 Disneyland prep for tomorrow</b><br>Before heading back to the hotel tonight, buy some snacks/food and a bottle of water for your Disneyland day on Dec 15. Pack them tonight so you are ready to leave in the morning.</div>':'');
 
  const waypoints=d.legs.map(x=>x[2]);
  const start=d.legs[0][1],end=d.legs[d.legs.length-1][2];
