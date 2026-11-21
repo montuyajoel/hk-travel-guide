@@ -93,6 +93,17 @@ select,.switch button,.interactbar input{border-radius:12px}
 @media(max-width:390px){.day-nav{gap:5px}.day-nav button{padding:9px 10px;font-size:11px}.day-nav span{font-size:9px}}
 
 .itinerary-header{background:#fff;color:#111;padding:18px max(20px,calc((100vw - 1080px)/2)) 22px;border-bottom:1px solid #eee}.itinerary-header h1{font-size:clamp(30px,6vw,48px);margin:20px 0 8px}.itinerary-header h1 .accent{color:#d71920}.itinerary-header p{font-size:14px;color:#5f6268;line-height:1.5}.itinerary-header .brandmark{text-decoration:none}@media(max-width:600px){.itinerary-header{padding:16px 18px 20px}}
+
+/* Directional day-change motion */
+#trip.day-enter-next{animation:dayEnterNext .34s cubic-bezier(.2,.75,.25,1)}
+#trip.day-enter-prev{animation:dayEnterPrev .34s cubic-bezier(.2,.75,.25,1)}
+@keyframes dayEnterNext{from{opacity:.45;transform:translateX(34px)}to{opacity:1;transform:translateX(0)}}
+@keyframes dayEnterPrev{from{opacity:.45;transform:translateX(-34px)}to{opacity:1;transform:translateX(0)}}
+.day-picker-panel{position:relative;overflow:hidden}
+.day-picker-panel.day-flash-next:after,.day-picker-panel.day-flash-prev:after{content:"";position:absolute;top:0;bottom:0;width:4px;background:#1769b8;opacity:0;animation:dayEdge .34s ease-out;pointer-events:none}
+.day-picker-panel.day-flash-next:after{right:0}.day-picker-panel.day-flash-prev:after{left:0}
+@keyframes dayEdge{0%{opacity:0;transform:scaleY(.35)}35%{opacity:.8;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+@media(prefers-reduced-motion:reduce){#trip.day-enter-next,#trip.day-enter-prev{animation:none}.day-picker-panel.day-flash-next:after,.day-picker-panel.day-flash-prev:after{animation:none}}
 </style></head><body>
 <header class="itinerary-header"><div class="topnav"><a class="brandmark" href="index.html" aria-label="Back to welcome page">◈</a><nav class="navlinks"><a href="index.html">← Welcome</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Your <span class="accent">itinerary</span></h1><p>Six days across Hong Kong and Macau. Choose a day, follow the route and keep track of your stops.</p></header>
 <main id="trip">
@@ -285,11 +296,21 @@ $('stops').addEventListener('input',e=>{if(e.target.matches('[data-note]')){appS
 DAYS.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=d.name;$('day').append(o)});
 
 function selectDay(next){
+ const current=Number($('day').value);
  const bounded=Math.max(0,Math.min(DAYS.length-1,next));
+ if(bounded===current)return;
+ const direction=bounded>current?'next':'prev';
+ const trip=$('trip'),picker=$('.day-picker-panel');
+ trip.classList.remove('day-enter-next','day-enter-prev');
+ picker.classList.remove('day-flash-next','day-flash-prev');
  $('day').value=String(bounded);
  render();
  $('prevDay').disabled=bounded===0;
  $('nextDay').disabled=bounded===DAYS.length-1;
+ void trip.offsetWidth;
+ trip.classList.add(direction==='next'?'day-enter-next':'day-enter-prev');
+ picker.classList.add(direction==='next'?'day-flash-next':'day-flash-prev');
+ window.setTimeout(()=>{trip.classList.remove('day-enter-next','day-enter-prev');picker.classList.remove('day-flash-next','day-flash-prev')},380);
 }
 $('day').addEventListener('change',()=>{render();$('prevDay').disabled=Number($('day').value)===0;$('nextDay').disabled=Number($('day').value)===DAYS.length-1;});
 $('prevDay').addEventListener('click',()=>selectDay(Number($('day').value)-1));
