@@ -85,8 +85,15 @@ select,.switch button,.interactbar input{border-radius:12px}
 .guide-card i{font-style:normal;color:#1769b8;font-size:16px;font-weight:800;align-self:flex-start}
 @media(max-width:390px){.guide-grid{gap:7px}.guide-card{padding:8px;gap:8px;min-height:78px}.guide-card img,.guide-symbol{width:46px;height:46px}.guide-card b{font-size:11px}.guide-card small{font-size:9px}}
 @media(min-width:700px){.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.guide-card{min-height:92px}.guide-card img,.guide-symbol{width:62px;height:62px}}
+.welcome-cta{display:inline-flex;align-items:center;justify-content:center;margin:18px 0 0;padding:13px 20px;border-radius:30px;background:#1769b8;color:#fff;text-decoration:none;font-size:13px;font-weight:850;box-shadow:0 6px 18px #1769b826}
+.day-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.day-nav button{border:1px solid #dce8f5;background:#f2f7fc;color:#155b9a;border-radius:24px;padding:10px 13px;font-size:12px;font-weight:800;cursor:pointer}
+.day-nav button:disabled{opacity:.35;cursor:default}
+.day-nav span{font-size:10px;color:#788392;text-align:center}
+@media(max-width:390px){.day-nav{gap:5px}.day-nav button{padding:9px 10px;font-size:11px}.day-nav span{font-size:9px}}
+
 </style></head><body>
-<header><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">Start exploring ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
+<header id="welcome"><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">View itinerary ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
  <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
  <div class="weather-cities">
   <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
@@ -104,9 +111,9 @@ select,.switch button,.interactbar input{border-radius:12px}
   <a class="guide-card" href="currency.html"><span class="guide-symbol">HK$<small>⇄</small>₱</span><span><b>HKD ⇄ PHP</b><small>Quick currency converter</small></span><i>↗</i></a>
   <a class="guide-card" href="weather.html"><span class="guide-symbol">☀</span><span><b>Weather & crowd</b><small>Forecasts and useful live links</small></span><i>↗</i></a>
  </div>
-</section></header>
+</section><a class="welcome-cta" href="#trip">Open my itinerary ↓</a></header>
 <main id="trip">
-<section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
+<section class="panel day-picker-panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select><div class="day-nav"><button type="button" id="prevDay" aria-label="Previous day">← Previous day</button><span id="swipeHint">Swipe left to go to the next day</span><button type="button" id="nextDay">Next day →</button></div></section>
 <section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
 <section class="panel"><div class="dayhead" id="daytitle"></div><div class="muted" id="daycount"></div><div class="progress-meta"><span id="progresslabel">0 of 0 stops completed</span><b id="progresspct">0%</b></div><div class="progress-track"><div class="progress-fill" id="progressfill"></div></div></section>
 <section class="panel"><div class="dayhead">🧭 Smart day overview</div><p class="muted">Relaxed pacing: prioritise the highlights, allow meal breaks and avoid rushing between districts.</p><div id="smartoverview"></div><div class="actions"><a class="alt" id="fullroute" href="#" target="_blank" rel="noopener">Open day route in Google Maps ↗</a></div></section>
@@ -293,7 +300,36 @@ function render(){
 $('stops').addEventListener('change',e=>{if(e.target.matches('[data-done]')){appState.done[e.target.dataset.done]=e.target.checked;persist();e.target.closest('.stop').classList.toggle('done',e.target.checked);updateProgress()}});
 $('stops').addEventListener('input',e=>{if(e.target.matches('[data-note]')){appState.notes[e.target.dataset.note]=e.target.value;persist()}});
 DAYS.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=d.name;$('day').append(o)});
-$('day').addEventListener('change',render);
+
+function selectDay(next){
+ const bounded=Math.max(0,Math.min(DAYS.length-1,next));
+ $('day').value=String(bounded);
+ render();
+ $('prevDay').disabled=bounded===0;
+ $('nextDay').disabled=bounded===DAYS.length-1;
+}
+$('day').addEventListener('change',()=>{render();$('prevDay').disabled=Number($('day').value)===0;$('nextDay').disabled=Number($('day').value)===DAYS.length-1;});
+$('prevDay').addEventListener('click',()=>selectDay(Number($('day').value)-1));
+$('nextDay').addEventListener('click',()=>selectDay(Number($('day').value)+1));
+$('prevDay').disabled=true;
+$('nextDay').disabled=false;
+let swipeStart=null;
+$('trip').addEventListener('touchstart',e=>{
+ if(e.touches.length!==1)return;
+ const target=e.target;
+ if(target.closest('input,textarea,select,button,a,[contenteditable="true"]')){swipeStart=null;return;}
+ swipeStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
+$('trip').addEventListener('touchend',e=>{
+ if(!swipeStart||!e.changedTouches.length)return;
+ const dx=e.changedTouches[0].clientX-swipeStart.x;
+ const dy=e.changedTouches[0].clientY-swipeStart.y;
+ if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.25){
+  selectDay(Number($('day').value)+(dx<0?1:-1));
+ }
+ swipeStart=null;
+},{passive:true});
+
 function setProvider(p){provider=p;$('google').classList.toggle('active',p==='google');$('apple').classList.toggle('active',p==='apple');$('apphint').textContent='Directions will open in '+(p==='google'?'Google Maps.':'Apple Maps.');render()}
 $('google').onclick=()=>setProvider('google');$('apple').onclick=()=>setProvider('apple');
 render();
