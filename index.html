@@ -25,9 +25,37 @@ footer{font-size:12px;color:#69788b;line-height:1.55;padding:5px 3px 25px}
 .currency-quick{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .currency-quick span{font-size:11px;color:#637187}
 @media(max-width:390px){.currency-grid{grid-template-columns:1fr 34px 1fr}.currency-grid input{padding:10px 7px;font-size:14px}}
+
+/* KRAS-inspired visual refresh: crisp white canvas, editorial type, red destination accent */
+:root{--navy:#101010;--blue:#1769b8;--bg:#fff;--line:#e8e8e8;--muted:#5f6268}
+body{background:#fff;color:#111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{background:#fff;color:#111;padding:20px max(20px,calc((100vw - 1080px)/2)) 30px;border-bottom:1px solid #eee}
+header h1{font-size:clamp(34px,7vw,66px);line-height:.98;letter-spacing:-.055em;font-weight:850;margin:30px 0 14px;max-width:780px}
+header h1 .accent{color:#d71920}
+header p{color:#3e4248;font-size:clamp(15px,2vw,20px);line-height:1.55;max-width:620px}
+header .topnav{display:flex;align-items:center;justify-content:space-between;gap:14px}
+header .brandmark{font-size:28px;color:#1769b8;font-weight:900}
+header .navlinks{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+header .navlinks a{display:inline-flex;align-items:center;background:#fff;color:#1769b8;border:1px solid #dce8f5;border-radius:30px;padding:9px 13px;font-size:12px;font-weight:800;text-decoration:none}
+header .navlinks a.primary{background:#1769b8;color:#fff;border-color:#1769b8}
+header .heroimage{display:block;width:100%;max-width:1080px;height:clamp(190px,36vw,390px);object-fit:cover;border-radius:18px;margin:28px auto 0}
+main{max-width:1080px;padding:22px 18px 40px}
+.panel{border:1px solid #e9e9e9;border-radius:18px;box-shadow:0 6px 22px #00000008;padding:20px}
+.dayhead{font-size:20px;letter-spacing:-.025em;color:#111}
+label{color:#161616;letter-spacing:.04em}
+select,.switch button,.interactbar input{border-radius:12px}
+.switch button.active{background:#1769b8;border-color:#1769b8}
+.stop{border-radius:16px;border-color:#ededed;box-shadow:0 3px 12px #00000006}
+.num{background:#fff0f0;color:#d71920;border-radius:50%}
+.actions a{border-radius:30px;background:#1769b8}
+.actions a.alt,.mini{background:#f2f7fc;color:#155b9a;border-color:#dce8f5;border-radius:30px}
+.placephoto{border-radius:14px}
+.tip{border-radius:14px}
+.progress-fill{background:#d71920}
+@media(max-width:600px){header{padding:16px 18px 24px}header h1{margin-top:35px}header .topnav{align-items:center}header .navlinks{max-width:78%}header .navlinks a{padding:8px 10px;font-size:11px}header .heroimage{margin-top:22px;border-radius:14px}main{padding:14px 12px 30px}.panel{padding:15px}}
 </style></head><body>
-<header><h1>Hong Kong & Macau Trip Navigator</h1><p>13–18 December 2026 · Six days of stops · Choose your map app and open directions.<br><a href="currency.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">💱 HKD ⇄ PHP Calculator</a> <a href="weather.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">🌦️ Weather & Crowd Check</a> <a href="food.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">🍜 Must-Try Food & Pastries</a> <a href="michelin.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">★ MICHELIN Guide</a> <a href="disney.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">🏰 Disney Tips & Guide</a></p></header>
-<main>
+<header><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">Start exploring ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><div class="navlinks" style="justify-content:flex-start;margin-top:18px"><a href="currency.html">HKD ⇄ PHP</a><a href="weather.html">Weather & crowd</a><a href="food.html">Must-try food</a><a href="michelin.html">MICHELIN guide</a><a href="disney.html">Disney playbook</a></div></header>
+<main id="trip">
 <section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
 <section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
 <section class="panel"><div class="dayhead" id="daytitle"></div><div class="muted" id="daycount"></div><div class="progress-meta"><span id="progresslabel">0 of 0 stops completed</span><b id="progresspct">0%</b></div><div class="progress-track"><div class="progress-fill" id="progressfill"></div></div></section>
