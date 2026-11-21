@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12233d"><title>HK & Macau Trip Navigator</title>
+<style>
+:root{--navy:#12233d;--blue:#1769aa;--bg:#f3f6fa;--line:#dce3ec;--muted:#637187}
+*{box-sizing:border-box}a,button,select,input,textarea{ -webkit-tap-highlight-color:transparent }a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f0b429;outline-offset:2px}body{margin:0;background:var(--bg);color:#192638;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{background:var(--navy);color:#fff;padding:23px 18px 19px}header h1{font-size:24px;margin:0 0 6px}header p{font-size:13px;color:#c5d2e2;margin:0;line-height:1.5}
+main{max-width:760px;margin:auto;padding:14px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #12233d0b}
+label{font-size:13px;font-weight:750;color:#53647b;display:block;margin:0 0 7px}
+select{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:12px;background:white;font-size:15px;color:#192638}
+.switch{display:grid;grid-template-columns:1fr 1fr;gap:8px}.switch button{padding:12px 8px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#23415f;font-weight:750}.switch button.active{background:var(--navy);color:white;border-color:var(--navy)}
+.dayhead{font-size:17px;font-weight:800;margin:0 0 4px}.muted{font-size:13px;color:var(--muted)}
+.stop{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}.row{display:flex;gap:10px;align-items:flex-start}.num{flex:none;width:30px;height:30px;border-radius:9px;background:#e8f1fb;color:#145b96;display:grid;place-items:center;font-weight:800;font-size:12px}.stop h3{font-size:14px;margin:2px 0 6px}.note{font-size:14px;color:#5b687a;line-height:1.45;margin:0 0 11px}.mode{font-size:10px;letter-spacing:.04em;color:#60738a;font-weight:800;margin:0 0 8px}.actions{display:flex;gap:7px;flex-wrap:wrap}.actions a{min-height:44px;display:flex;align-items:center;justify-content:center;flex:1;text-align:center;min-width:120px;text-decoration:none;background:var(--blue);color:white;padding:11px 8px;border-radius:9px;font-size:12px;font-weight:750}.actions a.alt{background:#edf4fb;color:#164f80;border:1px solid #d5e4f3}.fooditem,.extraitem{border-top:1px solid var(--line);padding:12px 0}.fooditem:first-child,.extraitem:first-child{border-top:0}.fooditem h3,.extraitem h3{font-size:14px;margin:0 0 4px}.price{font-size:12px;font-weight:800;color:#1769aa;margin:4px 0}.fooditem p,.extraitem p{font-size:12px;color:#5b687a;line-height:1.45;margin:4px 0 8px}.mini{display:inline-flex;align-items:center;min-height:40px;text-decoration:none;color:#164f80;background:#edf4fb;border:1px solid #d5e4f3;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:750}.coffeeitem{border-top:1px solid var(--line);padding:12px 0}.placephoto{display:block;width:100%;height:170px;object-fit:cover;border-radius:11px;margin:0 0 9px;background:#e8edf3}.coffeeitem,.extraitem{overflow:hidden}.coffeeitem:first-child{border-top:0}.coffeeitem h3{font-size:14px;margin:0 0 4px}.coffeeitem p{font-size:12px;color:#5b687a;line-height:1.45;margin:4px 0 8px}.coffeeitem .distance{font-size:11px;color:#1769aa;font-weight:800;margin:4px 0}.tip{font-size:12px;line-height:1.55;color:#6b4c1c;background:#fff8ed;border:1px solid #f1dfc4;border-radius:11px;padding:11px}
+footer{font-size:12px;color:#69788b;line-height:1.55;padding:5px 3px 25px}
+
+.v2line{padding:9px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45}.v2line:first-child{border-top:0}.v2line b{display:block;margin-bottom:3px}.v2pill{display:inline-block;background:#edf4fb;color:#164f80;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:750;margin:3px 4px 3px 0}.v2group{margin:8px 0}.v2group h4{font-size:12px;color:#53647b;margin:10px 0 5px}.actions a{cursor:pointer}
+.interactbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.interactbar input{flex:1;min-width:170px;border:1px solid #cbd5e1;border-radius:10px;padding:11px;font-size:14px}.progress-track{height:9px;background:#e8edf4;border-radius:20px;overflow:hidden;margin:9px 0}.progress-fill{height:100%;width:0;background:#1769aa;transition:width .2s}.progress-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#637187}.stop.done{opacity:.62;background:#f6fafc}.stop.done h3{text-decoration:line-through}.stop-tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 10px}.stop-tools label{display:flex;gap:6px;align-items:center;margin:0;font-size:12px;cursor:pointer}.stop-tools input{accent-color:#1769aa}.favbtn{border:1px solid #d5e4f3;background:#edf4fb;color:#164f80;border-radius:8px;padding:7px 10px;font-weight:750;cursor:pointer}.favbtn.on{background:#fff4d8;border-color:#eed38a;color:#805800}.personal-note{width:100%;margin-top:9px;border:1px solid #dce3ec;border-radius:9px;padding:9px;font:12px inherit;min-height:38px}.hidden-stop{display:none!important}.interactbar button{border:1px solid #cbd5e1;background:#fff;border-radius:9px;padding:10px 12px;color:#23415f;font-weight:700;cursor:pointer}
+
+.currency-grid{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:end;margin:12px 0}
+.currency-grid input{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:12px;font-size:16px;color:#192638;background:#fff}
+.currency-swap{height:43px;border:1px solid #cbd5e1;border-radius:10px;background:#edf4fb;color:#164f80;font-size:21px;font-weight:800;cursor:pointer}
+.currency-meta{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:9px 0}
+.currency-meta span{font-size:12px;font-weight:800;color:#1769aa}
+.currency-meta button,.currency-quick button{border:1px solid #d5e4f3;background:#edf4fb;color:#164f80;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:750;cursor:pointer}
+.currency-quick{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.currency-quick span{font-size:11px;color:#637187}
+@media(max-width:390px){.currency-grid{grid-template-columns:1fr 34px 1fr}.currency-grid input{padding:10px 7px;font-size:14px}}
+</style></head><body>
+<header><h1>Hong Kong & Macau Trip Navigator</h1><p>13–18 December 2026 · Six days of stops · Choose your map app and open directions.<br><a href="currency.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">💱 HKD ⇄ PHP Calculator</a> <a href="weather.html" style="display:inline-block;margin-top:12px;color:#fff;background:#1769aa;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:750;font-size:12px">🌦️ Weather & Crowd Check</a></p></header>
+<main>
+<section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
+<section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
+<section class="panel"><div class="dayhead" id="daytitle"></div><div class="muted" id="daycount"></div><div class="progress-meta"><span id="progresslabel">0 of 0 stops completed</span><b id="progresspct">0%</b></div><div class="progress-track"><div class="progress-fill" id="progressfill"></div></div></section>
+<section class="panel"><div class="dayhead">🧭 Smart day overview</div><p class="muted">Relaxed pacing: prioritise the highlights, allow meal breaks and avoid rushing between districts.</p><div id="smartoverview"></div><div class="actions"><a class="alt" id="fullroute" href="#" target="_blank" rel="noopener">Open day route in Google Maps ↗</a></div></section>
+<div id="stops"></div>
+<section class="panel"><div class="dayhead">🍜 Suggested restaurants & estimated prices</div><p class="muted">Typical spend per person, in local currency. Estimates only; menus and prices may change.</p><div id="food"></div></section>
+<section class="panel"><div class="dayhead">📍 Optional stopovers nearby</div><p class="muted">Easy add-ons if you have extra time. Open each in your selected map app.</p><div id="extras"></div></section>
+<section class="panel"><div class="dayhead">☕ Must-try coffee stops</div><p class="muted">One or two carefully picked coffee stops near your route each day. Check opening hours before heading out.</p><div id="coffee"></div></section>
+<div class="tip"><b>Travel reminders</b><br>• Macau ferry times are not confirmed by this app; follow your ticket and terminal.<br>• On arrival, use the A21 Bank Centre stop. On departure, use the airport-bound Argyle Street stop.<br>• For Disneyland, change at Sunny Bay. For the Peak, take the Peak Tram uphill.</div>
+<footer>This app creates directions links; it does not book tickets or guarantee live transit schedules. Apple Maps links work best on iPhone. Google Maps links can open the Google Maps app when installed. Internet is needed for live maps and directions.</footer>
+</main>
+<script>
+const DAYS=[{"name": "Dec 13 · Arrival & Harbour", "legs": [["Airport → A21 arrival stop", "Hong Kong International Airport, Hong Kong", "Bank Centre, Nathan Road, Mong Kok, Hong Kong", "transit", "Take A21 toward Hung Hom; alight at Bank Centre."], ["Bank Centre → Hotel", "Bank Centre, Nathan Road, Mong Kok, Hong Kong", "iclub Mong Kok Hotel, 2 Anchor Street, Hong Kong", "walking", "Walk to the hotel and leave luggage."], ["Hotel → Avenue of Stars", "iclub Mong Kok Hotel, Hong Kong", "Avenue of Stars, Tsim Sha Tsui, Hong Kong", "transit", "MTR to Tsim Sha Tsui, then walk."]]}, {"name": "Dec 14 · Central & Peak", "legs": [["Hotel → Man Mo Temple", "iclub Mong Kok Hotel, Hong Kong", "Man Mo Temple, Sheung Wan, Hong Kong", "transit", "Take the MTR toward Sheung Wan."], ["Man Mo Temple → PMQ", "Man Mo Temple, Sheung Wan, Hong Kong", "PMQ, 35 Aberdeen Street, Hong Kong", "walking", "Explore Old Town Central."], ["PMQ → Peak Tram", "PMQ, Central, Hong Kong", "Peak Tram Lower Terminus, 33 Garden Road, Hong Kong", "walking", "Walk to the tram station."], ["Peak Tram → The Peak", "Peak Tram Lower Terminus, Hong Kong", "The Peak Tower, Hong Kong", "transit", "Take the Peak Tram uphill."], ["Central → Tsim Sha Tsui Pier", "Central Star Ferry Pier 7, Hong Kong", "Tsim Sha Tsui Star Ferry Pier, Hong Kong", "transit", "Cross Victoria Harbour by Star Ferry."]]}, {"name": "Dec 15 · Disneyland", "legs": [["Hotel → Disneyland", "iclub Mong Kok Hotel, Hong Kong", "Hong Kong Disneyland, Lantau Island, Hong Kong", "transit", "Olympic MTR → Sunny Bay → Disneyland Resort Line."], ["Disneyland → Hotel", "Hong Kong Disneyland, Lantau Island, Hong Kong", "iclub Mong Kok Hotel, Hong Kong", "transit", "Return via Sunny Bay and Olympic."]]}, {"name": "Dec 16 · Macau", "legs": [["Hotel → Hong Kong Ferry Terminal", "iclub Mong Kok Hotel, Hong Kong", "Hong Kong Macau Ferry Terminal, Shun Tak Centre, Hong Kong", "transit", "Take MTR to Sheung Wan."], ["Outer Harbour → Senado Square", "Macau Outer Harbour Ferry Terminal, Macau", "Senado Square, Macau", "driving", "Take a taxi after immigration."], ["Senado Square → Ruins of St Paul's", "Senado Square, Macau", "Ruins of St Paul's, Macau", "walking", "Walk through the historic centre."], ["Senado → Venetian (optional)", "Senado Square, Macau", "The Venetian Macao, Cotai, Macau", "driving", "Optional taxi trip to Cotai."], ["Venetian → Outer Harbour", "The Venetian Macao, Cotai, Macau", "Macau Outer Harbour Ferry Terminal, Macau", "driving", "Return for your booked ferry."]]}, {"name": "Dec 17 · Gardens & Markets", "legs": [["Hotel → Nan Lian Garden", "iclub Mong Kok Hotel, Hong Kong", "Nan Lian Garden, Diamond Hill, Hong Kong", "transit", "Kwun Tong Line to Diamond Hill."], ["Nan Lian → Chi Lin Nunnery", "Nan Lian Garden, Hong Kong", "Chi Lin Nunnery, Diamond Hill, Hong Kong", "walking", "Nearby garden and temple visit."], ["Hotel → Ladies Market", "iclub Mong Kok Hotel, Hong Kong", "Ladies Market, Tung Choi Street, Mong Kok, Hong Kong", "walking", "Explore Mong Kok shopping streets."], ["Hotel → Temple Street", "iclub Mong Kok Hotel, Hong Kong", "Temple Street Night Market, Jordan, Hong Kong", "transit", "MTR to Jordan."]]}, {"name": "Dec 18 · Airport Departure", "legs": [["Hotel → Airport-bound A21 stop", "iclub Mong Kok Hotel, Hong Kong", "Yau Tsim Mong District Health Centre, Argyle Street, Mong Kok, Hong Kong", "walking", "Use the airport-bound stop, not the arrival stop."], ["A21 stop → Airport", "Yau Tsim Mong District Health Centre, Argyle Street, Mong Kok, Hong Kong", "Hong Kong International Airport, Hong Kong", "transit", "Board A21 displaying Airport."]]}];
+
+// Restaurant prices are planning estimates per person, not live menu quotes.
+const FOOD = [
+ [
+  ["DimDimSum Mong Kok","106 Tung Choi Street, Mong Kok, Hong Kong","Dim sum favourites; convenient for the Ladies' Market area.","HK$80–150"],
+  ["Aroy Khao Man Gai","97 Tung Choi Street, Mong Kok, Hong Kong","Thai chicken rice and comforting quick meals near the hotel.","HK$60–100"],
+  ["MoA Dining","1/F Hong Kong Museum of Art, 10 Salisbury Road, Tsim Sha Tsui, Hong Kong","A sit-down option by the harbour after Avenue of Stars.","HK$180–350"]
+ ],
+ [
+  ["Man Mo Dim Sum","233 Hollywood Road, Sheung Wan, Hong Kong","Creative dim sum close to Man Mo Temple.","HK$120–220"],
+  ["Mak's Noodle","77 Wellington Street, Central, Hong Kong","Classic wonton noodles; good for a quick Central lunch.","HK$50–90"],
+  ["Lan Fong Yuen","44 Nathan Road, Tsim Sha Tsui, Hong Kong","Famous-style milk tea and Hong Kong café food; handy after the Star Ferry.","HK$60–110"]
+ ],
+ [
+  ["Hong Kong Disneyland resort restaurants","Hong Kong Disneyland, Lantau Island, Hong Kong","Eat inside the park for convenience; quick-service meals are usually the best-value choice.","HK$120–220"],
+  ["Disneyland snack stops","Hong Kong Disneyland, Lantau Island, Hong Kong","Popcorn, seasonal treats and drinks between rides.","HK$35–90"]
+ ],
+ [
+  ["Wong Chi Kei","17 Largo do Senado, Macau","Noodles and congee right by Senado Square.","MOP 70–130"],
+  ["Cafe SAB8","Patio de Chon Sau, near Ruins of St Paul's, Macau","Small Portuguese–Macanese café for a local-style lunch.","MOP 100–180"],
+  ["North","Shop 1015, Level 1, The Venetian Macao, Cotai, Macau","Sichuan noodles and dishes if you continue to Cotai.","MOP 120–220"]
+ ],
+ [
+  ["Chi Lin Vegetarian","Nan Lian Garden, 60 Fung Tak Road, Diamond Hill, Hong Kong","Vegetarian Chinese dishes inside the garden complex; a peaceful lunch stop.","HK$100–200"],
+  ["Hay Wong Dim Sum","17 Tung Choi Street, Mong Kok, Hong Kong","Casual dim sum close to Ladies' Market.","HK$70–130"],
+  ["Temple Street food stalls","Temple Street Night Market, Jordan, Hong Kong","Try claypot rice, seafood and street snacks; prices vary by stall.","HK$80–180"]
+ ],
+ [
+  ["Mong Kok cha chaan teng","Argyle Street, Mong Kok, Hong Kong","Convenient breakfast before taking the airport-bound A21.","HK$45–85"],
+  ["Good Hope Noodles","Mong Kok, Kowloon, Hong Kong","A quick wonton-noodle option if you have time before the bus.","HK$50–80"]
+ ]
+];
+const EXTRAS = [
+ [
+  ["Yau Ma Tei","Yau Ma Tei, Kowloon, Hong Kong","Old streets, fruit market area and traditional neighbourhood atmosphere."],
+  ["Tsim Sha Tsui Clock Tower","Salisbury Road, Tsim Sha Tsui, Hong Kong","Add this short waterfront photo stop before or after Avenue of Stars."]
+ ],
+ [
+  ["Tai Kwun","10 Hollywood Road, Central, Hong Kong","Restored former police and prison compound with courtyards, galleries and cafés."],
+  ["Central Market","93 Queen's Road Central, Hong Kong","Air-conditioned heritage market with food and small shops; useful break between Central sights."],
+  ["Hong Kong Observation Wheel","33 Man Kwong Street, Central, Hong Kong","Optional harbourfront ride near the Star Ferry piers."]
+ ],
+ [
+  ["Mystic Point / Grizzly Gulch","Hong Kong Disneyland, Lantau Island, Hong Kong","Themed lands to explore between headline rides; check park opening and attraction schedules."],
+  ["Inspiration Lake","Hong Kong Disneyland Resort, Lantau Island, Hong Kong","Quieter outdoor break if you want a pause from the park crowds."]
+ ],
+ [
+  ["St Dominic's Church","板樟堂前地, Senado Square, Macau","Beautiful yellow church right beside Senado Square."],
+  ["Lou Kau Mansion","7 Travessa da Sé, Macau","Compact historic house a short walk from Senado Square."],
+  ["Taipa Village","Taipa, Macau","If time allows, swap or add this walk for food lanes and Portuguese-colonial streets near Cotai."]
+ ],
+ [
+  ["Wong Tai Sin Temple","2 Chuk Yuen Road, Wong Tai Sin, Kowloon, Hong Kong","Colourful temple complex; easy to combine with Diamond Hill by MTR."],
+  ["Mong Kok Sneaker Street","Fa Yuen Street, Mong Kok, Hong Kong","Browse sports shops and side streets before Ladies' Market."],
+  ["Yau Ma Tei Tin Hau Temple","Public Square Street, Yau Ma Tei, Hong Kong","A small traditional temple near the Temple Street area."]
+ ],
+ [
+  ["Kowloon Park","22 Austin Road, Tsim Sha Tsui, Hong Kong","Green space and a calm walk if you have spare time before airport transfer."]
+ ]
+];
+
+const DAY_AREAS = [
+ {area:'Mong Kok & Tsim Sha Tsui'},
+ {area:'Central & The Peak'},
+ {area:'Hong Kong Disneyland'},
+ {area:'Macau Historic Centre & Cotai'},
+ {area:'Diamond Hill & Mong Kok'},
+ {area:'Mong Kok & Hong Kong International Airport'}
+];
+
+const COFFEE_BY_DAY = {
+ 0: [
+  ["% Arabica · Victoria Dockside","Shop  K11 MUSEA / Victoria Dockside, 18 Salisbury Road, Tsim Sha Tsui, Hong Kong","A polished specialty-coffee stop right by the Avenue of Stars and harbourfront promenade. Ideal before or after the waterfront stroll.","Along the way · Avenue of Stars","Allow roughly HK$40–65 per drink; confirm branch hours on the day."],
+  ["Urban Coffee Roaster · Tsim Sha Tsui","7 Bristol Avenue, Tsim Sha Tsui, Kowloon, Hong Kong","A coffee-first café a short walk inland from the harbourfront, handy if you want a proper sit-down cup.","Nearby · short walk from Tsim Sha Tsui","Allow roughly HK$40–70 per drink; opening hours can change."]
+ ],
+ 1: [
+  ["Little Cove Espresso · Central Yards","Kiosk on 1/F, Temporary Footbridge, New Central Harbour Front, Central, Hong Kong","At the harbourfront footbridge between the IFC/Central area and the Central Pier side. Best paired with the Star Ferry / harbourfront part of the day.","On route · very convenient","Coffee kiosk; allow roughly HK$35–65 per drink. Check current kiosk hours."],
+  ["% Arabica · The Henderson","3/F, The Henderson, 2 Murray Road, Central, Hong Kong","Design-led coffee bar inside The Henderson, a short Central-side detour from the Peak Tram / Garden Road area.","Nearby · short walk / brief detour","Allow around HK$40–65 per drink; recheck branch hours."],
+  ["Macchina","Shop 4, G/F, Centre Point, 181–185 Gloucester Road, Wan Chai, Hong Kong","Futuristic gallery-style café with a supercar theme. This is farther east in Wan Chai, so visit only if you want a dedicated café detour.","Optional detour · Wan Chai","Specialty coffee; budget roughly HK$45–75 per drink. Recheck opening hours."]
+ ],
+ 2: [
+  ["Market House / Starbucks · Disneyland","Main Street, U.S.A., Hong Kong Disneyland, Lantau Island, Hong Kong","The convenient in-park coffee stop near the entrance. Best for a quick caffeine break without leaving the park.","Inside the park · easiest option","Requires Disneyland admission; park hours and outlet operation vary by date." ]
+ ],
+ 3: [
+  ["Pace Coffee Macau","49 Rua dos Ervanários, Macau, Macao","A small specialty-coffee stop in the historic centre, conveniently placed between Senado Square and the Ruins of St Paul’s area.","Along the historic-centre walk","Allow roughly MOP 35–65 per drink; check hours before visiting."],
+  ["Soul of Seed","1/F, Edificio San Vo, 5 Beco da Palha, Macau, Macao","A compact café near the Senado / Rua da Palha shopping streets, good as a quick pause while exploring the old town.","Nearby · short walk from Senado Square","Allow roughly MOP 35–60 per drink; verify current opening hours."]
+ ],
+ 4: [
+  ["115 SEN Coffee","Shop 115, 1/F, Kai Chuen Shopping Centre, 235 Choi Hung Road, Diamond Hill, Kowloon, Hong Kong","A convenient neighbourhood coffee stop close to Diamond Hill MTR, useful after Nan Lian Garden and Chi Lin Nunnery.","Nearby · Diamond Hill","Allow roughly HK$35–65 per drink; check hours before setting out."],
+  ["Knockbox Coffee Company","23 Hak Po Street, Mong Kok, Kowloon, Hong Kong","A respected local specialty roaster for espresso and filter coffee. Fits the Mong Kok part of your afternoon, but go earlier rather than late.","Along the way · Mong Kok","Allow roughly HK$40–70 per drink. Published listings commonly show daytime hours and Tuesday closure; recheck before visiting."]
+ ],
+ 5: [
+  ["nodi · Hong Kong International Airport","Near Gate 214, Hong Kong International Airport, Chek Lap Kok, Hong Kong","A convenient final specialty-coffee option after security while waiting for your flight.","At the airport · airside","Allow roughly HK$40–70 per drink; airport outlet hours may vary."]
+ ]
+};
+
+const PLACE_PHOTOS = {
+ "% Arabica · Victoria Dockside":"https://static.dezeen.com/uploads/2018/12/arabica-star-ferry-interiors-coffee-shop-hong-kong-china_dezeen_2364_col_2.jpg",
+ "Urban Coffee Roaster · Tsim Sha Tsui":"https://www.holidify.com/images/cmsuploads/compressed/cof5_20200129111846.jpg",
+ "Market House / Starbucks · Disneyland":"https://prd-cdn.capital-hk.com/8661_hkdl_starbucks_store_02_970c8e315b.jpg",
+ "Pace Coffee Macau":"https://static7.orstatic.com/userphoto3/photo/2I/1ZDG/0E3JQM118EB1BF493F1E10px.jpg",
+ "Soul of Seed":"https://media.timeout.com/images/106250830/1372/1029/image.jpg",
+ "Knockbox Coffee Company":"https://www.jimhamill.com/uploads/2/3/6/2/23627878/2414646_orig.jpg",
+ "nodi · Hong Kong International Airport":"https://next-cms-cdn.dash.co/Nodi_d192e658c8.jpg",
+
+ "Little Cove Espresso · Central Yards":"https://www.cathaypacific.com/content/dam/focal-point/cx/inspiration/2026/07/Hong_Kong%27s_hottest_restaurants_and_bars_July-little_cove_Espresso-courtesyimages-7.renditionimage.1700.1133.jpg",
+ "Macchina":"https://img.voguehk.com/media/2026/06/11161634/SnapInsta.to_706198359_18086646725207760_1325564275133421278_n.jpg",
+ "% Arabica · The Henderson":"https://arabicacoffee.hk/uploads/Image_20250220143524.jpg",
+ "Tai Kwun":"https://i0.wp.com/purcellarchitecture.com/wp-content/uploads/2025/06/Tai-Kwun-05-1-scaled.jpg?fit=600%2C581&ssl=1",
+ "Nan Lian Garden":"https://photos.smugmug.com/Asia/China/Hong-Kong/Nan-Lian-Garden/i-QLX7vSB/0/L/Nan-Lian-Garden-00321.jpg",
+ "Chi Lin Nunnery":"https://i0.wp.com/mattsnextsteps.com/wp-content/uploads/2024/09/DSC00764-min.jpg?resize=1024%2C683&ssl=1",
+ "Wong Tai Sin Temple":"https://images.squarespace-cdn.com/content/v1/64ad8506e4ffc013e6af6693/05e94057-6594-4b94-ba5e-cb51c276c271/Hong%2BKong%2BWong%2BTai%2BSin%2BTemple.jpg",
+ "Ruins of St Paul’s":"https://stat.ameba.jp/user_images/20231022/20/atsushi2019/ed/77/j/o1280096015354381696.jpg"
+};
+function photo(name){const u=PLACE_PHOTOS[name];return u?`<img class="placephoto" src="${u}" alt="${name}" loading="lazy" referrerpolicy="no-referrer">`:''}
+function renderCoffee(i){
+ const el=$('coffee');
+ const picks=COFFEE_BY_DAY[i]||[];
+ if(!picks.length){el.innerHTML='<p class="muted">No coffee stop scheduled for this day.</p>';return;}
+ el.innerHTML=picks.map(x=>`<div class="coffeeitem">${photo(x[0])}<h3>${x[0]}</h3><div class="distance">${x[3]}</div><p>${x[2]}</p><p><b>${x[4]}</b></p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Find café in map ↗</a></div>`).join('');
+}
+function mapLink(place){
+ const encoded=encodeURIComponent(place);
+ if(provider==='apple') return 'https://maps.apple.com/?q='+encoded;
+ return 'https://www.google.com/maps/search/?api=1&query='+encoded;
+}
+function renderExtras(i){
+ $('food').innerHTML=FOOD[i].map(x=>`<div class="fooditem"><h3>${x[0]}</h3><div class="price">${x[3]} per person (estimate)</div><p>${x[2]}</p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Find restaurant ↗</a></div>`).join('');
+ $('extras').innerHTML=EXTRAS[i].map(x=>`<div class="extraitem">${photo(x[0])}<h3>${x[0]}</h3><p>${x[2]}</p><a class="mini" href="${mapLink(x[1])}" target="_blank" rel="noopener">Open stopover ↗</a></div>`).join('');
+}
+
+
+function renderV2(i){
+ const d=DAYS[i];
+ const main=d.legs.slice(0,Math.min(4,d.legs.length));
+ $('smartoverview').innerHTML='<div class="v2pill">Relaxed pace</div><div class="v2pill">'+main.length+' suggested route segments</div><div class="v2line"><b>Today&#39;s focus</b>'+d.name+'</div>'+main.map((x,j)=>'<div class="v2line"><b>'+ (j+1)+'. '+x[0]+'</b>'+x[4]+'</div>').join('')+(d.legs.length>4?'<p class="muted">Extra segments are optional. Consider skipping one if you want a slower day.</p>':'<p class="muted">Keep a flexible meal and rest break between visits.</p>');
+
+ const waypoints=d.legs.map(x=>x[2]);
+ const start=d.legs[0][1],end=d.legs[d.legs.length-1][2];
+ let u=new URL('https://www.google.com/maps/dir/');u.searchParams.set('api','1');u.searchParams.set('origin',start);u.searchParams.set('destination',end);u.searchParams.set('travelmode','transit');if(waypoints.length>2)u.searchParams.set('waypoints',waypoints.slice(0,-1).join('|'));$('fullroute').href=u.toString();
+}
+let provider='google';
+const $=id=>document.getElementById(id);
+function route(from,to,mode){
+ if(provider==='apple'){
+  const u=new URL('https://maps.apple.com/');u.searchParams.set('saddr',from);u.searchParams.set('daddr',to);u.searchParams.set('dirflg',mode==='walking'?'w':mode==='driving'?'d':'r');return u.toString();
+ }
+ const u=new URL('https://www.google.com/maps/dir/');u.searchParams.set('api','1');u.searchParams.set('origin',from);u.searchParams.set('destination',to);u.searchParams.set('travelmode',mode==='walking'?'walking':mode==='driving'?'driving':'transit');return u.toString();
+}
+const STORE='hkMacauNavigatorV3';
+function loadState(){try{return JSON.parse(localStorage.getItem(STORE)||'{\"done\":{},\"saved\":[],\"notes\":{}}')}catch(e){return {done:{},notes:{}}}}
+let appState=loadState();
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(appState))}catch(e){}}
+function placeKey(day,index){return day+'-'+index}
+function updateProgress(){const i=Number($('day').value),total=DAYS[i].legs.length,done=DAYS[i].legs.filter((x,j)=>appState.done[placeKey(i,j)]).length,pct=Math.round(done/total*100);$('progresslabel').textContent=done+' of '+total+' stops completed';$('progresspct').textContent=pct+'%';$('progressfill').style.width=pct+'%';$('daycount').textContent=total+' navigation segments · '+done+' completed'}
+function render(){
+ const i=Number($('day').value),d=DAYS[i];$('daytitle').textContent=d.name;updateProgress();renderExtras(i);renderCoffee(i);renderV2(i);
+ $('stops').innerHTML=d.legs.map((x,j)=>{const k=placeKey(i,j),done=!!appState.done[k];return `<article class="stop ${done?'done':''}"><div class="stop-tools"><label><input type="checkbox" data-done="${k}" ${done?'checked':''}> Mark completed</label></div><div class="row"><div class="num">${j+1}</div><div style="flex:1"><h3>${x[0]}</h3><div class="mode">${x[3].toUpperCase()}</div><p class="note">${x[4]}</p><div class="actions"><a href="${route(x[1],x[2],x[3])}" target="_blank" rel="noopener">Open directions ↗</a><a class="alt" href="${route('',x[2],x[3])}" target="_blank" rel="noopener">Destination only ↗</a></div><textarea class="personal-note" data-note="${k}" placeholder="Add a personal note (meeting point, booking ref, reminder)…">${(appState.notes[k]||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></div></div></article>`}).join('');
+ 
+}
+$('stops').addEventListener('change',e=>{if(e.target.matches('[data-done]')){appState.done[e.target.dataset.done]=e.target.checked;persist();e.target.closest('.stop').classList.toggle('done',e.target.checked);updateProgress()}});
+$('stops').addEventListener('input',e=>{if(e.target.matches('[data-note]')){appState.notes[e.target.dataset.note]=e.target.value;persist()}});
+DAYS.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=d.name;$('day').append(o)});
+$('day').addEventListener('change',render);
+function setProvider(p){provider=p;$('google').classList.toggle('active',p==='google');$('apple').classList.toggle('active',p==='apple');$('apphint').textContent='Directions will open in '+(p==='google'?'Google Maps.':'Apple Maps.');render()}
+$('google').onclick=()=>setProvider('google');$('apple').onclick=()=>setProvider('apple');
+render();
+
+</script></body></html>
