@@ -53,8 +53,27 @@ select,.switch button,.interactbar input{border-radius:12px}
 .tip{border-radius:14px}
 .progress-fill{background:#d71920}
 @media(max-width:600px){header{padding:16px 18px 24px}header h1{margin-top:35px}header .topnav{align-items:center}header .navlinks{max-width:78%}header .navlinks a{padding:8px 10px;font-size:11px}header .heroimage{margin-top:22px;border-radius:14px}main{padding:14px 12px 30px}.panel{padding:15px}}
+
+.header-weather{max-width:680px;margin:18px 0 0;padding:12px 14px;border:1px solid #e6eaf0;border-radius:16px;background:#f8fafc;color:#17212d}
+.weather-heading{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:10px;letter-spacing:.09em;font-weight:850;color:#667085;margin-bottom:9px}
+.weather-heading #weatherUpdated{font-size:10px;letter-spacing:0;font-weight:600;text-align:right}
+.weather-cities{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.weather-city{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 8px;background:#fff;border:1px solid #e8edf3;border-radius:12px;padding:9px 11px}
+.weather-city .weather-place{font-size:12px;font-weight:800;color:#3c4b5f}
+.weather-city strong{grid-column:2;grid-row:1/3;font-size:25px;letter-spacing:-.04em;color:#111}
+.weather-city span:last-child{font-size:11px;color:#1769b8;font-weight:750}
+.weather-credit{font-size:10px;color:#788392;margin-top:8px}
+.weather-credit a{color:#1769b8;font-weight:750}
+@media(max-width:600px){.header-weather{margin-top:16px;padding:10px}.weather-city{padding:8px}.weather-city strong{font-size:22px}}
 </style></head><body>
-<header><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">Start exploring ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><div class="navlinks" style="justify-content:flex-start;margin-top:18px"><a href="currency.html">HKD ⇄ PHP</a><a href="weather.html">Weather & crowd</a><a href="food.html">Must-try food</a><a href="michelin.html">MICHELIN guide</a><a href="disney.html">Disney playbook</a></div></header>
+<header><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">Start exploring ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
+ <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
+ <div class="weather-cities">
+  <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span>Rain chance --%</span></div>
+  <div class="weather-city" id="weatherMacau"><span class="weather-place">Macau</span><strong>--°C</strong><span>Rain chance --%</span></div>
+ </div>
+ <div class="weather-credit">Current temperature · next-hour rain probability · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div>
+</div><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><div class="navlinks" style="justify-content:flex-start;margin-top:18px"><a href="currency.html">HKD ⇄ PHP</a><a href="weather.html">Weather & crowd</a><a href="food.html">Must-try food</a><a href="michelin.html">MICHELIN guide</a><a href="disney.html">Disney playbook</a></div></header>
 <main id="trip">
 <section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
 <section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
@@ -245,4 +264,36 @@ function setProvider(p){provider=p;$('google').classList.toggle('active',p==='go
 $('google').onclick=()=>setProvider('google');$('apple').onclick=()=>setProvider('apple');
 render();
 
+
+async function loadHeaderWeather(){
+ const places=[
+  {id:'weatherHK',name:'Hong Kong',lat:22.3193,lon:114.1694},
+  {id:'weatherMacau',name:'Macau',lat:22.1987,lon:113.5439}
+ ];
+ const stamp=new Date();
+ const fmtTime=()=>stamp.toLocaleTimeString('en-HK',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Hong_Kong'});
+ async function one(p){
+  const url='https://api.open-meteo.com/v1/forecast?latitude='+p.lat+'&longitude='+p.lon+'&current=temperature_2m,rain,precipitation,weather_code&hourly=precipitation_probability&timezone=Asia%2FHong_Kong&forecast_days=2';
+  const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error('Weather unavailable');
+  const data=await res.json();
+  const now=new Date(data.current.time.replace(' ','T')+'+08:00').getTime();
+  let ix=data.hourly.time.findIndex(t=>new Date(t.replace(' ','T')+'+08:00').getTime()>=now);
+  if(ix<0)ix=0;
+  const temp=Math.round(data.current.temperature_2m);
+  const rain=data.hourly.precipitation_probability[ix];
+  const el=document.getElementById(p.id);
+  el.querySelector('strong').textContent=temp+'°C';
+  el.querySelector('span:last-child').textContent='Rain chance '+(rain==null?'—':Math.round(rain))+'%';
+  el.setAttribute('aria-label',p.name+', '+temp+' degrees Celsius, next-hour rain probability '+(rain==null?'unavailable':Math.round(rain)+' percent'));
+ }
+ try{
+  await Promise.all(places.map(one));
+  document.getElementById('weatherUpdated').textContent='Updated '+fmtTime()+' HKT';
+ }catch(e){
+  document.getElementById('weatherUpdated').textContent='Weather temporarily unavailable';
+  places.forEach(p=>{const el=document.getElementById(p.id);el.querySelector('span:last-child').textContent='Forecast unavailable';});
+ }
+}
+loadHeaderWeather();
+setInterval(loadHeaderWeather,30*60*1000);
 </script></body></html>
