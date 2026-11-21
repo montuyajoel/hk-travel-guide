@@ -300,7 +300,7 @@ function selectDay(next){
  const bounded=Math.max(0,Math.min(DAYS.length-1,next));
  if(bounded===current)return;
  const direction=bounded>current?'next':'prev';
- const trip=$('trip'),picker=$('.day-picker-panel');
+ const trip=$('trip'),picker=document.querySelector('.day-picker-panel');
  trip.classList.remove('day-enter-next','day-enter-prev');
  picker.classList.remove('day-flash-next','day-flash-prev');
  $('day').value=String(bounded);
