@@ -65,6 +65,26 @@ select,.switch button,.interactbar input{border-radius:12px}
 .weather-credit{font-size:10px;color:#788392;margin-top:8px}
 .weather-credit a{color:#1769b8;font-weight:750}
 @media(max-width:600px){.header-weather{margin-top:16px;padding:10px}.weather-city{padding:8px}.weather-city strong{font-size:22px}}
+
+/* Editorial guide hub */
+.guide-hub{margin:24px 0 30px;padding:22px 0 2px;border-top:1px solid #eee}
+.guide-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 0 14px}
+.guide-eyebrow{font-size:10px;letter-spacing:.13em;font-weight:850;color:#1769b8}
+.guide-heading h2{font-size:23px;letter-spacing:-.045em;margin:5px 0 3px;color:#111}
+.guide-heading p{font-size:13px;color:#707780;margin:0;line-height:1.4}
+.guide-count{font-size:9px;letter-spacing:.08em;font-weight:850;color:#7b8490;background:#f5f7f9;border-radius:20px;padding:7px 9px;white-space:nowrap}
+.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.guide-card{min-width:0;min-height:83px;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #e8ebef;border-radius:14px;background:#fff;color:#141a22;text-decoration:none;box-shadow:0 3px 12px #00000006;transition:transform .15s,border-color .15s}
+.guide-card:active{transform:scale(.985);border-color:#b8d1e9}
+.guide-card img,.guide-symbol{width:54px;height:54px;flex:none;border-radius:10px;object-fit:cover;background:#edf4fb}
+.guide-symbol{display:flex;align-items:center;justify-content:center;flex-direction:column;color:#1769b8;font-size:15px;font-weight:900;line-height:1}
+.guide-symbol small{font-size:10px}
+.guide-card>span:nth-child(2){min-width:0;flex:1}
+.guide-card b{display:block;font-size:12px;line-height:1.2;margin-bottom:4px}
+.guide-card small{display:block;font-size:10px;line-height:1.35;color:#737d89}
+.guide-card i{font-style:normal;color:#1769b8;font-size:16px;font-weight:800;align-self:flex-start}
+@media(max-width:390px){.guide-grid{gap:7px}.guide-card{padding:8px;gap:8px;min-height:78px}.guide-card img,.guide-symbol{width:46px;height:46px}.guide-card b{font-size:11px}.guide-card small{font-size:9px}}
+@media(min-width:700px){.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.guide-card{min-height:92px}.guide-card img,.guide-symbol{width:62px;height:62px}}
 </style></head><body>
 <header><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="#trip">Start exploring ↓</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
  <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
@@ -72,7 +92,18 @@ select,.switch button,.interactbar input{border-radius:12px}
   <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
  </div>
  <div class="weather-credit">Hong Kong conditions · Macau is usually similar; check local wind before your ferry · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div>
-</div><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><div class="navlinks" style="justify-content:flex-start;margin-top:18px"><a href="currency.html">HKD ⇄ PHP</a><a href="weather.html">Weather & crowd</a><a href="food.html">Must-try food</a><a href="michelin.html">MICHELIN guide</a><a href="disney.html">Disney playbook</a><a href="poses.html">Photo pose tips</a><a href="shopping.html">Shopping guide</a></div></header>
+</div><img class="heroimage" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="Hong Kong skyline and Victoria Harbour from Victoria Peak"><section class="guide-hub" aria-label="Explore trip guides">
+ <div class="guide-heading"><div><span class="guide-eyebrow">YOUR TRIP TOOLKIT</span><h2>Explore the guides</h2><p>Everything useful for the days ahead, all in one place.</p></div><span class="guide-count">7 QUICK GUIDES</span></div>
+ <div class="guide-grid">
+  <a class="guide-card" href="food.html"><img src="https://ichiran.com/shop/img/mnkk_01.png" alt="" loading="lazy"><span><b>Must-try food</b><small>Local favourites & food checklist</small></span><i>↗</i></a>
+  <a class="guide-card" href="michelin.html"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/20091003_Macau_Cathedral_of_Saint_Paul_6542.jpg" alt="" loading="lazy"><span><b>MICHELIN guide</b><small>Restaurant picks & price notes</small></span><i>↗</i></a>
+  <a class="guide-card" href="disney.html"><img src="https://images.unsplash.com/photo-1603697970266-9f5c8c7a6d8c?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy"><span><b>Disney playbook</b><small>Park plan, rides & handy tips</small></span><i>↗</i></a>
+  <a class="guide-card" href="shopping.html"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy"><span><b>Shopping guide</b><small>Wishlist, districts & best days</small></span><i>↗</i></a>
+  <a class="guide-card" href="poses.html"><img src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="" loading="lazy"><span><b>Photo pose tips</b><small>Save ideas for your travel shots</small></span><i>↗</i></a>
+  <a class="guide-card" href="currency.html"><span class="guide-symbol">HK$<small>⇄</small>₱</span><span><b>HKD ⇄ PHP</b><small>Quick currency converter</small></span><i>↗</i></a>
+  <a class="guide-card" href="weather.html"><span class="guide-symbol">☀</span><span><b>Weather & crowd</b><small>Forecasts and useful live links</small></span><i>↗</i></a>
+ </div>
+</section></header>
 <main id="trip">
 <section class="panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select></section>
 <section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
