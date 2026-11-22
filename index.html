@@ -93,6 +93,25 @@ select,.switch button,.interactbar input{border-radius:12px}
 @media(max-width:390px){.day-nav{gap:5px}.day-nav button{padding:9px 10px;font-size:11px}.day-nav span{font-size:9px}}
 
 .welcome-bottom{max-width:1080px;margin:auto;padding:0 18px 48px}.welcome-panel{border:1px solid #e9e9e9;border-radius:18px;padding:22px;box-shadow:0 6px 22px #00000008}.welcome-panel h2{font-size:clamp(23px,4vw,32px);letter-spacing:-.04em;margin:8px 0}.welcome-panel p{font-size:14px;color:#707780;line-height:1.5;margin:0 0 8px}@media(max-width:600px){.welcome-bottom{padding:0 12px 32px}.welcome-panel{padding:18px}}
+
+/* Persistent site-wide dark mode */
+body.dark-mode{background:#11151b!important;color:#edf1f6!important;color-scheme:dark}
+body.dark-mode header,body.dark-mode footer,body.dark-mode main{color:#edf1f6}
+body.dark-mode header{background:#151b23!important;border-color:#29313d!important}
+body.dark-mode p,body.dark-mode .muted,body.dark-mode .note,body.dark-mode label,body.dark-mode .eyebrow,body.dark-mode .guide-eyebrow{color:#b5c0ce!important}
+body.dark-mode .panel,body.dark-mode .stop,body.dark-mode .guide-card,body.dark-mode .welcome-panel,body.dark-mode .welcome-card,body.dark-mode .card,body.dark-mode .food-card,body.dark-mode .reel-card,body.dark-mode .wishlist-card,body.dark-mode .weather-city,body.dark-mode .header-weather,body.dark-mode .currency-card,body.dark-mode .tip{background:#1b222c!important;color:#edf1f6!important;border-color:#303b49!important;box-shadow:0 4px 18px #0005}
+body.dark-mode input,body.dark-mode textarea,body.dark-mode select,body.dark-mode button:not(.theme-toggle),body.dark-mode .switch button{background:#202936;color:#edf1f6;border-color:#3a4656}
+body.dark-mode a{color:#8fc4ff}
+body.dark-mode .navlinks a,body.dark-mode .mini,body.dark-mode .actions a.alt,body.dark-mode .favbtn{background:#202d3d;color:#a9d2ff;border-color:#3b526d}
+body.dark-mode .actions a,body.dark-mode .welcome-cta{background:#1769b8;color:#fff}
+body.dark-mode .progress-track{background:#303b49}
+body.dark-mode .stop.done{background:#17231f!important}
+body.dark-mode .num{background:#3a2428;color:#ffb3b8}
+body.dark-mode .map-toggle{background:#202936;border-color:#3a4656}
+body.dark-mode .map-toggle button.active{background:#1769b8;color:#fff}
+.theme-toggle{position:fixed;right:14px;bottom:18px;z-index:9999;border:1px solid #cbd5e1;border-radius:24px;padding:10px 14px;background:#fff;color:#182638;box-shadow:0 4px 18px #0002;font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+@media(prefers-reduced-motion:no-preference){body,body header,body .panel,body .stop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
 </style></head><body>
 <header id="welcome"><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="itinerary.html">View itinerary →</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
  <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
@@ -147,4 +166,26 @@ async function loadHeaderWeather(){
 }
 loadHeaderWeather();
 setInterval(loadHeaderWeather,30*60*1000);
+</script><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button>
+<script>
+(function(){
+ const key='hkMacauTheme2026';
+ const btn=document.getElementById('themeToggle');
+ const apply=mode=>{
+  const dark=mode==='dark';
+  document.body.classList.toggle('dark-mode',dark);
+  btn.setAttribute('aria-pressed',String(dark));
+  btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+  document.getElementById('themeIcon').textContent=dark?'☀':'☾';
+  document.getElementById('themeLabel').textContent=dark?'Light mode':'Dark mode';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#11151b':'#ffffff');
+ };
+ let saved=null;try{saved=localStorage.getItem(key)}catch(e){}
+ apply(saved==='dark'?'dark':'light');
+ btn.addEventListener('click',()=>{
+  const next=document.body.classList.contains('dark-mode')?'light':'dark';
+  try{localStorage.setItem(key,next)}catch(e){}
+  apply(next);
+ });
+})();
 </script></body></html>
