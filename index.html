@@ -112,8 +112,18 @@ body.dark-mode .map-toggle button.active{background:#1769b8;color:#fff}
 .theme-toggle{position:fixed;right:14px;bottom:18px;z-index:9999;border:1px solid #cbd5e1;border-radius:24px;padding:10px 14px;background:#fff;color:#182638;box-shadow:0 4px 18px #0002;font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
 @media(prefers-reduced-motion:no-preference){body,body header,body .panel,body .stop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
+
+/* Compact theme control in the page header */
+header{position:relative}
+.theme-toggle{position:absolute;top:13px;right:16px;z-index:20;border:1px solid #cbd5e1;border-radius:18px;padding:6px 10px;background:#fff;color:#26364b;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,body.dark-mode strong,body.dark-mode b{color:#edf1f6!important}
+body.dark-mode .weather-city strong,body.dark-mode .weather-city .temperature,body.dark-mode .temp,body.dark-mode .stat-value{color:#edf1f6!important}
+body.dark-mode .eyebrow,body.dark-mode .guide-eyebrow{color:#aebdce!important}
+body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color:#edf1f6!important}
+@media(max-width:600px){.theme-toggle{top:10px;right:12px;padding:5px 8px;font-size:10px}}
 </style></head><body>
-<header id="welcome"><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="itinerary.html">View itinerary →</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
+<header id="welcome"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="itinerary.html">View itinerary →</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
  <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
  <div class="weather-cities">
   <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
@@ -166,7 +176,7 @@ async function loadHeaderWeather(){
 }
 loadHeaderWeather();
 setInterval(loadHeaderWeather,30*60*1000);
-</script><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button>
+</script>
 <script>
 (function(){
  const key='hkMacauTheme2026';
