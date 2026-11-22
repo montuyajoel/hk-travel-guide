@@ -36,8 +36,18 @@ body.dark-mode .map-toggle button.active{background:#1769b8;color:#fff}
 .theme-toggle{position:fixed;right:14px;bottom:18px;z-index:9999;border:1px solid #cbd5e1;border-radius:24px;padding:10px 14px;background:#fff;color:#182638;box-shadow:0 4px 18px #0002;font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
 @media(prefers-reduced-motion:no-preference){body,body header,body .panel,body .stop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
+
+/* Compact theme control in the page header */
+header{position:relative}
+.theme-toggle{position:absolute;top:13px;right:16px;z-index:20;border:1px solid #cbd5e1;border-radius:18px;padding:6px 10px;background:#fff;color:#26364b;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,body.dark-mode strong,body.dark-mode b{color:#edf1f6!important}
+body.dark-mode .weather-city strong,body.dark-mode .weather-city .temperature,body.dark-mode .temp,body.dark-mode .stat-value{color:#edf1f6!important}
+body.dark-mode .eyebrow,body.dark-mode .guide-eyebrow{color:#aebdce!important}
+body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color:#edf1f6!important}
+@media(max-width:600px){.theme-toggle{top:10px;right:12px;padding:5px 8px;font-size:10px}}
 </style></head><body>
-<header><div class="wrap"><a href="./">← Back to Trip Navigator</a><h1>💱 Currency Calculator</h1><p>Hong Kong dollars ⇄ Philippine pesos<br>Quickly estimate spending while travelling.</p></div></header>
+<header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><div class="wrap"><a href="./">← Back to Trip Navigator</a><h1>💱 Currency Calculator</h1><p>Hong Kong dollars ⇄ Philippine pesos<br>Quickly estimate spending while travelling.</p></div></header>
 <main>
 <section class="card"><div class="eyebrow">LIVE REFERENCE CONVERSION</div><div class="amount-grid"><div><label id="leftLabel" for="leftAmount">Hong Kong dollars (HKD)</label><input id="leftAmount" type="number" inputmode="decimal" min="0" step="0.01" value="100"></div><button class="swap" id="swap" type="button" aria-label="Swap currencies">⇄</button><div><label id="rightLabel" for="rightAmount">Philippine pesos (PHP)</label><input id="rightAmount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="—"></div></div>
 <div class="meta"><span class="rate" id="rateText" aria-live="polite">Fetching latest rate…</span><button class="btn" id="refresh" type="button">↻ Refresh rate</button></div><div class="muted" id="rateDate">Connecting to exchange-rate service…</div>
@@ -59,7 +69,7 @@ body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#5261
  document.getElementById('swap').addEventListener('click',()=>{const a=left.value,b=right.value;left.value=b;right.value=a;mode=mode==='HKD_PHP'?'PHP_HKD':'HKD_PHP';labels();edited='left';recalc('left')});
  document.querySelectorAll('[data-amount]').forEach(b=>b.addEventListener('click',()=>{if(mode!=='HKD_PHP'){mode='HKD_PHP';labels()}left.value=b.dataset.amount;edited='left';recalc('left')}));load();
 })();
-</script><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button>
+</script>
 <script>
 (function(){
  const key='hkMacauTheme2026';
