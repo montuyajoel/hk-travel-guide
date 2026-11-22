@@ -21,8 +21,18 @@ body.dark-mode .map-toggle button.active{background:#1769b8;color:#fff}
 .theme-toggle{position:fixed;right:14px;bottom:18px;z-index:9999;border:1px solid #cbd5e1;border-radius:24px;padding:10px 14px;background:#fff;color:#182638;box-shadow:0 4px 18px #0002;font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
 @media(prefers-reduced-motion:no-preference){body,body header,body .panel,body .stop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
+
+/* Compact theme control in the page header */
+header{position:relative}
+.theme-toggle{position:absolute;top:13px;right:16px;z-index:20;border:1px solid #cbd5e1;border-radius:18px;padding:6px 10px;background:#fff;color:#26364b;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,body.dark-mode strong,body.dark-mode b{color:#edf1f6!important}
+body.dark-mode .weather-city strong,body.dark-mode .weather-city .temperature,body.dark-mode .temp,body.dark-mode .stat-value{color:#edf1f6!important}
+body.dark-mode .eyebrow,body.dark-mode .guide-eyebrow{color:#aebdce!important}
+body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color:#edf1f6!important}
+@media(max-width:600px){.theme-toggle{top:10px;right:12px;padding:5px 8px;font-size:10px}}
 </style></head><body>
-<header><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow" style="margin-top:18px">TRIP PHOTO PLAYBOOK</div><h1>Easy poses.<br>Better travel photos.</h1><p>A growing gallery of Instagram pose references, with practical tips for recreating travel portraits.</p></header>
+<header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow" style="margin-top:18px">TRIP PHOTO PLAYBOOK</div><h1>Easy poses.<br>Better travel photos.</h1><p>A growing gallery of Instagram pose references, with practical tips for recreating travel portraits.</p></header>
 <main>
 <section class="panel hero"><div class="eyebrow">POSE INSPIRATION GALLERY</div><h2 style="font-size:22px;letter-spacing:-.03em;margin:8px 0">Tap a Reel to watch</h2><p style="font-size:14px;line-height:1.6;color:#555e69">Two saved Instagram references for your trip photo ideas. Each card embeds the original Reel, so you can open it and play it here when Instagram allows embedded playback.</p><div class="gallery" style="margin-top:16px">
 <div class="reel-card"><div class="reel-frame"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLQ3Vp8Rxv7/" data-instgrm-version="14" style="background:#fff;border:0;max-width:420px;width:100%"><a href="https://www.instagram.com/reel/DLQ3Vp8Rxv7/" target="_blank" rel="noopener">Watch Reel 01 on Instagram</a></blockquote></div><h3>01 · Relaxed natural stand</h3><p>Full-body portrait · relaxed stance · casual smile</p><a class="back" href="https://www.instagram.com/reel/DLQ3Vp8Rxv7/" target="_blank" rel="noopener">Open Reel ↗</a></div>
@@ -49,7 +59,7 @@ body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#5261
 </div></section>
 <section class="panel"><div class="eyebrow">HONG KONG & MACAU PHOTO IDEA</div><h2 style="font-size:20px;margin:7px 0">Where to try this pose</h2><p style="font-size:13px;color:#555e69;line-height:1.55">Look for a simple textured wall, a quiet edge beside greenery or a sunlit lane. In Hong Kong, try the quieter edges around Tai Kwun or the open promenades near Tsim Sha Tsui. In Macau, the pastel façades around the Historic Centre make a colourful alternative. Check that you are not blocking a walkway.</p><a class="back" href="index.html">Back to trip days</a></section>
 </main><footer>The first pose breakdown is based on the screenshot you shared. The second Reel is included as an embedded reference; its specific poses have not been described here.</footer>
-<script async src="https://www.instagram.com/embed.js"></script><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button>
+<script async src="https://www.instagram.com/embed.js"></script>
 <script>
 (function(){
  const key='hkMacauTheme2026';
