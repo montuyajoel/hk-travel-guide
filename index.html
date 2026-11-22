@@ -126,8 +126,13 @@ body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color
 /* Icon-only light/dark control */
 .theme-toggle{width:36px;height:36px;min-width:36px;justify-content:center;padding:0;border-radius:50%;font-size:18px;line-height:1}
 .theme-toggle #themeLabel{display:none}
+
+/* Keep the theme icon in the navigation flow; never overlay guide links */
+.topnav .navlinks{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.topnav .theme-toggle{position:static;inset:auto;flex:0 0 36px;margin:0;z-index:auto}
+@media(max-width:600px){.topnav .navlinks{gap:7px}.topnav .theme-toggle{width:34px;height:34px;min-width:34px;flex-basis:34px}}
 </style></head><body>
-<header id="welcome"><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="primary" href="itinerary.html">View itinerary →</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
+<header id="welcome"><div class="topnav"><div class="brandmark">◈</div><nav class="navlinks"><a class="primary" href="itinerary.html">View itinerary →</a><a href="food.html">Food</a><a href="disney.html">Disney</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button></nav></div><h1>Explore <span class="accent">Hong Kong</span><br>& Macau</h1><p>A six-day journey through harbour views, local food, iconic sights and a little Disney magic.</p><div class="header-weather" id="headerWeather" aria-live="polite">
  <div class="weather-heading"><span>LIVE WEATHER</span><span id="weatherUpdated">Loading local conditions…</span></div>
  <div class="weather-cities">
   <div class="weather-city" id="weatherHK"><span class="weather-place">Hong Kong</span><strong>--°C</strong><span class="weather-feels">Feels like --°C</span><span>Rain chance --%</span></div>
