@@ -295,7 +295,7 @@ function render(){
 }
 $('stops').addEventListener('change',e=>{if(e.target.matches('[data-done]')){appState.done[e.target.dataset.done]=e.target.checked;persist();e.target.closest('.stop').classList.toggle('done',e.target.checked);updateProgress()}});
 $('stops').addEventListener('input',e=>{if(e.target.matches('[data-note]')){appState.notes[e.target.dataset.note]=e.target.value;persist()}});
-DAYS.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=d.name;$('day').append(o)});
+
 
 function selectDay(next){
  const current=Number($('day').value);
