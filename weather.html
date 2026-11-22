@@ -36,7 +36,17 @@ body.dark-mode .map-toggle button.active{background:#1769b8;color:#fff}
 .theme-toggle{position:fixed;right:14px;bottom:18px;z-index:9999;border:1px solid #cbd5e1;border-radius:24px;padding:10px 14px;background:#fff;color:#182638;box-shadow:0 4px 18px #0002;font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
 @media(prefers-reduced-motion:no-preference){body,body header,body .panel,body .stop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
-</style></head><body><header><img class="heroimg" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="View of Hong Kong skyline and Victoria Harbour from Victoria Peak"><h1>🌦️ Weather & Crowd Check</h1><p>Check conditions and visitor information before heading out · 13–18 December 2026</p></header><main>
+
+/* Compact theme control in the page header */
+header{position:relative}
+.theme-toggle{position:absolute;top:13px;right:16px;z-index:20;border:1px solid #cbd5e1;border-radius:18px;padding:6px 10px;background:#fff;color:#26364b;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,body.dark-mode strong,body.dark-mode b{color:#edf1f6!important}
+body.dark-mode .weather-city strong,body.dark-mode .weather-city .temperature,body.dark-mode .temp,body.dark-mode .stat-value{color:#edf1f6!important}
+body.dark-mode .eyebrow,body.dark-mode .guide-eyebrow{color:#aebdce!important}
+body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color:#edf1f6!important}
+@media(max-width:600px){.theme-toggle{top:10px;right:12px;padding:5px 8px;font-size:10px}}
+</style></head><body><header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><img class="heroimg" src="https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_1024%2Cw_1024/0984f095-b20f-408f-9c59-5a53598dfb9d.jpeg" alt="View of Hong Kong skyline and Victoria Harbour from Victoria Peak"><h1>🌦️ Weather & Crowd Check</h1><p>Check conditions and visitor information before heading out · 13–18 December 2026</p></header><main>
 <section class="panel"><a class="back" href="index.html">← Back to Trip Navigator</a></section>
 <section class="panel"><label for="day">CHOOSE YOUR TRIP DAY</label><select id="day"><option value="0">Dec 13 · Arrival & Harbour</option><option value="1">Dec 14 · Central & Peak</option><option value="2">Dec 15 · Disneyland</option><option value="3">Dec 16 · Macau</option><option value="4">Dec 17 · Gardens & Markets</option><option value="5">Dec 18 · Airport Departure</option></select><p class="muted" id="area"></p></section>
 <section class="panel"><div class="heading">☁️ Official weather updates</div><p class="muted">Use official sources for current conditions, forecasts and warnings. Forecasts for December 2026 will become more useful closer to your travel dates.</p><div class="actions"><a class="alt" href="https://visithk.weather.gov.hk/" target="_blank" rel="noopener">Hong Kong weather for visitors ↗</a><a class="alt" href="https://www.weather.gov.hk/en/wxinfo/currwx/flw.htm" target="_blank" rel="noopener">HKO forecast & warnings ↗</a><a class="alt" href="https://www.smg.gov.mo/en" target="_blank" rel="noopener">Macau Meteorological Bureau ↗</a></div></section>
@@ -55,7 +65,7 @@ const areas=[
 function map(q){const e=encodeURIComponent(q);return provider==='apple'?'https://maps.apple.com/?q='+e:'https://www.google.com/maps/search/?api=1&query='+e}
 function render(){const a=areas[+$('day').value];$('area').textContent='Today’s area: '+a.name;let items=[['Today’s crowd check',a.crowd],['Additional check',a.extra]];if(+$('day').value===2)items.push(['Official park calendar','Hong Kong Disneyland calendar and opening hours']);$('crowd').innerHTML=items.map((x)=>'<div class="rowline"><b>'+x[0]+'</b>'+x[1]+'<div class="actions"><a class="alt" href="'+map(x[1])+'" target="_blank" rel="noopener">Search in '+(provider==='apple'?'Apple Maps':'Google Maps')+' ↗</a><a class="alt" href="https://www.google.com/search?q='+encodeURIComponent(x[1])+'" target="_blank" rel="noopener">Web search ↗</a></div></div>').join('')}
 $('day').addEventListener('change',render);function setProvider(p){provider=p;$('google').classList.toggle('active',p==='google');$('apple').classList.toggle('active',p==='apple');$('mapnote').textContent='Nearby searches will open in '+(p==='google'?'Google Maps.':'Apple Maps.');render()}$('google').onclick=()=>setProvider('google');$('apple').onclick=()=>setProvider('apple');render();
-</script><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button>
+</script>
 <script>
 (function(){
  const key='hkMacauTheme2026';
