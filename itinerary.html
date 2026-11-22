@@ -104,11 +104,13 @@ select,.switch button,.interactbar input{border-radius:12px}
 .day-picker-panel.day-flash-next:after{right:0}.day-picker-panel.day-flash-prev:after{left:0}
 @keyframes dayEdge{0%{opacity:0;transform:scaleY(.35)}35%{opacity:.8;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
 @media(prefers-reduced-motion:reduce){#trip.day-enter-next,#trip.day-enter-prev{animation:none}.day-picker-panel.day-flash-next:after,.day-picker-panel.day-flash-prev:after{animation:none}}
+
+.header-tools{display:flex;align-items:center;gap:12px}.map-toggle{display:inline-flex;align-items:center;padding:3px;border:1px solid #dce8f5;border-radius:24px;background:#f5f8fc;gap:2px}.map-toggle button{border:0;background:transparent;color:#31506f;border-radius:20px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer;min-width:54px}.map-toggle button.active{background:#1769b8;color:#fff;box-shadow:0 2px 6px #1769b833}.apphint{margin:0 0 12px;padding:0 4px;font-size:11px}.day-picker-panel{padding:10px 15px}.day-nav{margin:0}.day-nav button{border-radius:24px;padding:10px 13px}
+@media(max-width:600px){.header-tools{gap:6px;flex-direction:column;align-items:flex-end}.map-toggle button{padding:6px 9px;min-width:48px}.itinerary-header .navlinks{max-width:none}}
 </style></head><body>
-<header class="itinerary-header"><div class="topnav"><a class="brandmark" href="index.html" aria-label="Back to welcome page">◈</a><nav class="navlinks"><a href="index.html">← Welcome</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div><h1>Your <span class="accent">itinerary</span></h1><p>Six days across Hong Kong and Macau. Choose a day, follow the route and keep track of your stops.</p></header>
+<header class="itinerary-header"><div class="topnav"><a class="brandmark" href="index.html" aria-label="Back to welcome page">◈</a><div class="header-tools"><div class="map-toggle" role="group" aria-label="Choose map app"><button type="button" id="google" class="active" aria-pressed="true">Google</button><button type="button" id="apple" aria-pressed="false">Apple</button></div><nav class="navlinks"><a href="index.html">← Welcome</a><a href="food.html">Food</a><a href="disney.html">Disney</a></nav></div></div><h1>Your <span class="accent">itinerary</span></h1><p>Six days across Hong Kong and Macau. Choose a day, follow the route and keep track of your stops.</p></header>
 <main id="trip">
-<section class="panel day-picker-panel"><label for="day">1 · CHOOSE YOUR DAY</label><select id="day"></select><div class="day-nav"><button type="button" id="prevDay" aria-label="Previous day">← Previous day</button><span id="swipeHint">Swipe left to go to the next day</span><button type="button" id="nextDay">Next day →</button></div></section>
-<section class="panel"><label>2 · CHOOSE YOUR MAP APP</label><div class="switch"><button id="google" class="active">Google Maps</button><button id="apple">Apple Maps</button></div><p class="muted" id="apphint">Directions will open in Google Maps.</p></section>
+<input type="hidden" id="day" value="0"><section class="panel day-picker-panel"><div class="day-nav"><button type="button" id="prevDay" aria-label="Previous day">← Previous day</button><span id="swipeHint">Swipe left to go to the next day</span><button type="button" id="nextDay">Next day →</button></div></section><p class="muted apphint" id="apphint" aria-live="polite">Directions will open in Google Maps.</p>
 <section class="panel"><div class="dayhead" id="daytitle"></div><div class="muted" id="daycount"></div><div class="progress-meta"><span id="progresslabel">0 of 0 stops completed</span><b id="progresspct">0%</b></div><div class="progress-track"><div class="progress-fill" id="progressfill"></div></div></section>
 <section class="panel"><div class="dayhead">🧭 Smart day overview</div><p class="muted">Relaxed pacing: prioritise the highlights, allow meal breaks and avoid rushing between districts.</p><div id="smartoverview"></div><div class="actions"><a class="alt" id="fullroute" href="#" target="_blank" rel="noopener">Open day route in Google Maps ↗</a></div></section>
 <div id="stops"></div>
@@ -334,7 +336,7 @@ $('trip').addEventListener('touchend',e=>{
  swipeStart=null;
 },{passive:true});
 
-function setProvider(p){provider=p;$('google').classList.toggle('active',p==='google');$('apple').classList.toggle('active',p==='apple');$('apphint').textContent='Directions will open in '+(p==='google'?'Google Maps.':'Apple Maps.');render()}
+function setProvider(p){provider=p;$('google').classList.toggle('active',p==='google');$('apple').classList.toggle('active',p==='apple');$('google').setAttribute('aria-pressed',String(p==='google'));$('apple').setAttribute('aria-pressed',String(p==='apple'));$('apphint').textContent='Directions will open in '+(p==='google'?'Google Maps.':'Apple Maps.');render()}
 $('google').onclick=()=>setProvider('google');$('apple').onclick=()=>setProvider('apple');
 render();
 
