@@ -89,6 +89,13 @@ body.dark-mode .ig-preview{background:#202936}
 .reel-tile.is-open .ig-preview .ig-cover{display:none}
 .ig-preview:has(.ig-cover):after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000008 55%,#0008)}
 
+
+/* Playback is moved outside the button when expanded, so iframe controls are interactive */
+.reel-tile.is-open .tile-open{display:block}
+.reel-tile.is-open .tile-open .ig-preview{display:none}
+.reel-tile.is-open>.ig-preview{display:block;position:relative;width:100%;height:min(78vh,680px);max-width:540px;margin:10px auto;border-radius:12px;overflow:hidden;background:#000}
+.reel-tile.is-open>.ig-preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:auto;transform:none}
+
 </style></head><body>
 <header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow">TRIP VIDEO PLAYBOOK</div><h1>Reel inspiration.</h1><p>A growing collection of Instagram Reels to revisit when planning travel videos and memories from Hong Kong and Macau.</p></header>
 <main>
@@ -226,74 +233,74 @@ body.dark-mode .ig-preview{background:#202936}
 (function(){
  const tiles=[...document.querySelectorAll('.reel-tile')];
  let active=null;
- function fit(tile){
-  const shell=tile.querySelector('.ig-preview'),frame=shell.querySelector('iframe');
-  if(!frame||tile===active)return;
-  const scale=shell.clientWidth/328;
-  frame.style.transform='scale('+scale+')';
-  frame.style.height=(620/scale)+'px';
- }
- function load(tile){
+ function preview(tile){
   const shell=tile.querySelector('.ig-preview');
   if(shell.dataset.loaded)return;
   shell.dataset.loaded='1';
   const url=tile.dataset.url;
-  // Ask Instagram for its own public thumbnail first; fall back to its official embed.
   fetch('https://www.instagram.com/api/v1/oembed/?url='+encodeURIComponent(url),{credentials:'omit'})
    .then(response=>{if(!response.ok)throw new Error('Thumbnail unavailable');return response.json();})
    .then(data=>{
-    if(!data.thumbnail_url)throw new Error('No Instagram thumbnail');
+    if(tile.classList.contains('is-open')||!data.thumbnail_url)return;
     const img=document.createElement('img');
-    img.src=data.thumbnail_url;
-    img.alt='Original Instagram preview for Reel '+tile.dataset.number;
-    img.loading='lazy';
-    img.referrerPolicy='no-referrer';
-    img.className='ig-cover';
-    shell.appendChild(img);
+    img.src=data.thumbnail_url;img.alt='Original Instagram preview for Reel '+tile.dataset.number;
+    img.loading='lazy';img.referrerPolicy='no-referrer';img.className='ig-cover';
+    shell.replaceChildren(img);
    })
-   .catch(()=>{
-    const frame=document.createElement('iframe');
-    frame.src=url+'embed/';
-    frame.title='Instagram Reel '+tile.dataset.number+' preview';
-    frame.loading='lazy';
-    frame.allow='autoplay; encrypted-media; picture-in-picture; web-share';
-    frame.referrerPolicy='strict-origin-when-cross-origin';
-    frame.setAttribute('allowfullscreen','');
-    shell.appendChild(frame);
-    frame.addEventListener('load',()=>fit(tile));
-    setTimeout(()=>fit(tile),800);
-   });
+   .catch(()=>{ /* Keep the designed tile fallback if Instagram blocks thumbnail access. */ });
+ }
+ function play(tile){
+  const shell=tile.querySelector('.ig-preview');
+  const frame=document.createElement('iframe');
+  frame.src=tile.dataset.url+'embed/';
+  frame.title='Play Instagram Reel '+tile.dataset.number;
+  frame.allow='autoplay; encrypted-media; picture-in-picture; web-share';
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.setAttribute('allowfullscreen','');
+  frame.setAttribute('scrolling','no');
+  shell.replaceChildren(frame);
+  frame.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:auto;transform:none';
  }
  const observer=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){load(e.target);observer.unobserve(e.target);}});
+  entries.forEach(e=>{if(e.isIntersecting){preview(e.target);observer.unobserve(e.target);}});
  },{rootMargin:'250px'}):null;
  tiles.forEach(tile=>{
   const trigger=tile.querySelector('.tile-open');
   const number=tile.dataset.number;
-  const shell=document.createElement('div');
-  shell.className='ig-preview';
+  const shell=document.createElement('div');shell.className='ig-preview';
   shell.setAttribute('aria-label','Instagram preview for Reel '+number);
   trigger.querySelector('.tile-art').replaceWith(shell);
   trigger.setAttribute('aria-expanded','false');
   trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
-  if(observer)observer.observe(tile);else load(tile);
+  if(observer)observer.observe(tile);else preview(tile);
   trigger.addEventListener('click',()=>{
    if(active===tile){
-    tile.classList.remove('is-open');trigger.setAttribute('aria-expanded','false');
+    tile.classList.remove('is-open');
+    trigger.setAttribute('aria-expanded','false');
     trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
-    active=null;fit(tile);return;
+    shell.remove();
+    trigger.insertBefore(shell,trigger.querySelector('.tile-caption'));
+    shell.replaceChildren();
+    delete shell.dataset.loaded;
+    preview(tile);
+    active=null;
+    return;
    }
    if(active){
-    const old=active;old.classList.remove('is-open');
-    old.querySelector('.tile-open').setAttribute('aria-expanded','false');fit(old);
+    const old=active,oldTrigger=old.querySelector('.tile-open'),oldShell=old.querySelector('.ig-preview');
+    old.classList.remove('is-open');
+    oldTrigger.setAttribute('aria-expanded','false');
+    oldShell.remove();oldTrigger.insertBefore(oldShell,oldTrigger.querySelector('.tile-caption'));
+    oldShell.replaceChildren();delete oldShell.dataset.loaded;preview(old);
    }
-   active=tile;load(tile);tile.classList.add('is-open');
+   active=tile;
+   tile.classList.add('is-open');
    trigger.setAttribute('aria-expanded','true');
    trigger.setAttribute('aria-label','Collapse Reel '+number+' preview');
-   const frame=shell.querySelector('iframe');
-   if(frame){frame.style.transform='none';frame.style.width='100%';frame.style.height='100%';frame.style.pointerEvents='auto';}
+   shell.remove();
+   tile.insertBefore(shell,tile.querySelector('.reel-expanded'));
+   play(tile);
   });
-  window.addEventListener('resize',()=>fit(tile),{passive:true});
  });
 })();
 </script>
