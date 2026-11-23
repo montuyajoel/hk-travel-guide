@@ -68,6 +68,21 @@ body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color
 @media(prefers-reduced-motion:no-preference){.reel-tile{transition:box-shadow .18s ease,border-color .18s ease}.reel-tile.is-open{box-shadow:0 8px 28px #10182814}}
 body.dark-mode .reel-expanded{border-color:#303b49}
 
+
+/* Authentic Instagram previews in the compact gallery */
+.tile-art{display:none!important}
+.tile-open{display:block;position:relative}
+.ig-preview{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:10px;background:#f1f2f4}
+.ig-preview iframe{position:absolute;left:0;top:0;width:328px;height:620px;border:0;transform-origin:top left;pointer-events:none}
+.ig-preview:after{content:"";position:absolute;inset:0;background:transparent}
+.tile-caption{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.tile-caption:after{content:"EXPAND";font-size:9px;letter-spacing:.08em;color:var(--blue);font-weight:850}
+.reel-tile.is-open{grid-column:1/-1}
+.reel-tile.is-open .ig-preview{aspect-ratio:auto;height:min(78vh,680px);max-width:540px;margin:auto;background:#fff}
+.reel-tile.is-open .ig-preview iframe{width:100%;height:100%;transform:none;pointer-events:auto;left:0;top:0}
+.reel-tile.is-open .tile-caption:after{content:"CLOSE"}
+body.dark-mode .ig-preview{background:#202936}
+
 </style></head><body>
 <header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow">TRIP VIDEO PLAYBOOK</div><h1>Reel inspiration.</h1><p>A growing collection of Instagram Reels to revisit when planning travel videos and memories from Hong Kong and Macau.</p></header>
 <main>
@@ -203,51 +218,60 @@ body.dark-mode .reel-expanded{border-color:#303b49}
 </main><footer class="footer">Saved references are links to the original Instagram content; playback and embed availability are controlled by Instagram.</footer>
 <script>
 (function(){
- let instagramLoading=false;
- let activeTile=null;
- function processInstagram(){
-  if(window.instgrm&&window.instgrm.Embeds){window.instgrm.Embeds.process();return;}
-  if(instagramLoading)return;
-  instagramLoading=true;
-  const script=document.createElement('script');
-  script.async=true;
-  script.src='https://www.instagram.com/embed.js';
-  script.onload=()=>{instagramLoading=false;window.instgrm?.Embeds?.process();};
-  script.onerror=()=>{instagramLoading=false;};
-  document.body.appendChild(script);
+ const tiles=[...document.querySelectorAll('.reel-tile')];
+ let active=null;
+ function fit(tile){
+  const shell=tile.querySelector('.ig-preview'),frame=shell.querySelector('iframe');
+  if(!frame||tile===active)return;
+  const scale=shell.clientWidth/328;
+  frame.style.transform='scale('+scale+')';
+  frame.style.height=(620/scale)+'px';
  }
- function closeTile(tile){
-  if(!tile)return;
-  const expanded=tile.querySelector('.reel-expanded');
-  const trigger=tile.querySelector('.tile-open');
-  tile.classList.remove('is-open');
-  expanded.hidden=true;
-  trigger.hidden=false;
-  trigger.setAttribute('aria-expanded','false');
-  expanded.innerHTML='';
+ function load(tile){
+  const shell=tile.querySelector('.ig-preview');
+  if(shell.dataset.loaded)return;
+  shell.dataset.loaded='1';
+  const frame=document.createElement('iframe');
+  frame.src=tile.dataset.url+'embed/';
+  frame.title='Instagram Reel '+tile.dataset.number+' preview';
+  frame.loading='lazy';
+  frame.allow='autoplay; encrypted-media; picture-in-picture; web-share';
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.setAttribute('allowfullscreen','');
+  shell.appendChild(frame);
+  frame.addEventListener('load',()=>fit(tile));
+  setTimeout(()=>fit(tile),800);
  }
- document.querySelectorAll('.reel-tile').forEach(tile=>{
+ const observer=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){load(e.target);observer.unobserve(e.target);}});
+ },{rootMargin:'250px'}):null;
+ tiles.forEach(tile=>{
   const trigger=tile.querySelector('.tile-open');
-  const expanded=tile.querySelector('.reel-expanded');
   const number=tile.dataset.number;
+  const shell=document.createElement('div');
+  shell.className='ig-preview';
+  shell.setAttribute('aria-label','Instagram preview for Reel '+number);
+  trigger.querySelector('.tile-art').replaceWith(shell);
   trigger.setAttribute('aria-expanded','false');
-  trigger.setAttribute('aria-controls','reel-expanded-'+number);
-  expanded.id='reel-expanded-'+number;
+  trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
+  if(observer)observer.observe(tile);else load(tile);
   trigger.addEventListener('click',()=>{
-   if(activeTile===tile){closeTile(tile);activeTile=null;return;}
-   if(activeTile)closeTile(activeTile);
-   const url=tile.dataset.url;
-   expanded.innerHTML='<button class="reel-close" type="button">← Back to gallery</button><blockquote class="instagram-media" data-instgrm-permalink="'+url+'" data-instgrm-version="14" style="background:#fff;border:0;width:100%"><a href="'+url+'" target="_blank" rel="noopener">View Reel '+number+' on Instagram</a></blockquote>';
-   tile.classList.add('is-open');
-   expanded.hidden=false;
-   trigger.hidden=false;
+   if(active===tile){
+    tile.classList.remove('is-open');trigger.setAttribute('aria-expanded','false');
+    trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
+    active=null;fit(tile);return;
+   }
+   if(active){
+    const old=active;old.classList.remove('is-open');
+    old.querySelector('.tile-open').setAttribute('aria-expanded','false');fit(old);
+   }
+   active=tile;load(tile);tile.classList.add('is-open');
    trigger.setAttribute('aria-expanded','true');
-   activeTile=tile;
-   expanded.querySelector('.reel-close').addEventListener('click',()=>{
-    closeTile(tile);activeTile=null;trigger.focus();
-   });
-   processInstagram();
+   trigger.setAttribute('aria-label','Collapse Reel '+number+' preview');
+   const frame=shell.querySelector('iframe');
+   if(frame){frame.style.transform='none';frame.style.width='100%';frame.style.height='100%';frame.style.pointerEvents='auto';}
   });
+  window.addEventListener('resize',()=>fit(tile),{passive:true});
  });
 })();
 </script>
