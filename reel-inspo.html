@@ -54,6 +54,20 @@ body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color
 /* Icon-only light/dark control */
 .theme-toggle{width:36px;height:36px;min-width:36px;justify-content:center;padding:0;border-radius:50%;font-size:18px;line-height:1}
 .theme-toggle #themeLabel{display:none}
+
+/* Full-width, single-open Reel viewer */
+.reel-tile.is-open{grid-column:1/-1}
+.reel-tile.is-open .tile-open{display:flex;align-items:center;gap:12px;padding:3px 4px 10px}
+.reel-tile.is-open .tile-art{display:none}
+.reel-tile.is-open .tile-caption{padding:7px 4px;font-size:14px}
+.reel-tile.is-open .tile-caption:after{content:" · CLOSE";font-size:10px;letter-spacing:.08em;color:var(--blue);margin-left:auto}
+.reel-expanded{padding:10px 0 2px;border-top:1px solid var(--line)}
+.reel-expanded blockquote{max-width:540px!important}
+.reel-close{display:block;margin:0 0 10px auto}
+.tile-open:focus-visible,.reel-close:focus-visible{outline:3px solid #4b9bea;outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){.reel-tile{transition:box-shadow .18s ease,border-color .18s ease}.reel-tile.is-open{box-shadow:0 8px 28px #10182814}}
+body.dark-mode .reel-expanded{border-color:#303b49}
+
 </style></head><body>
 <header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow">TRIP VIDEO PLAYBOOK</div><h1>Reel inspiration.</h1><p>A growing collection of Instagram Reels to revisit when planning travel videos and memories from Hong Kong and Macau.</p></header>
 <main>
@@ -189,23 +203,50 @@ body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color
 </main><footer class="footer">Saved references are links to the original Instagram content; playback and embed availability are controlled by Instagram.</footer>
 <script>
 (function(){
- let instagramReady=false;
- function loadInstagram(done){
-  if(window.instgrm&&window.instgrm.Embeds){done();return;}
-  if(instagramReady){const check=setInterval(()=>{if(window.instgrm&&window.instgrm.Embeds){clearInterval(check);done();}},100);return;}
-  instagramReady=true;
-  const s=document.createElement('script');s.async=true;s.src='https://www.instagram.com/embed.js';s.onload=done;document.body.appendChild(s);
+ let instagramLoading=false;
+ let activeTile=null;
+ function processInstagram(){
+  if(window.instgrm&&window.instgrm.Embeds){window.instgrm.Embeds.process();return;}
+  if(instagramLoading)return;
+  instagramLoading=true;
+  const script=document.createElement('script');
+  script.async=true;
+  script.src='https://www.instagram.com/embed.js';
+  script.onload=()=>{instagramLoading=false;window.instgrm?.Embeds?.process();};
+  script.onerror=()=>{instagramLoading=false;};
+  document.body.appendChild(script);
+ }
+ function closeTile(tile){
+  if(!tile)return;
+  const expanded=tile.querySelector('.reel-expanded');
+  const trigger=tile.querySelector('.tile-open');
+  tile.classList.remove('is-open');
+  expanded.hidden=true;
+  trigger.hidden=false;
+  trigger.setAttribute('aria-expanded','false');
+  expanded.innerHTML='';
  }
  document.querySelectorAll('.reel-tile').forEach(tile=>{
   const trigger=tile.querySelector('.tile-open');
   const expanded=tile.querySelector('.reel-expanded');
+  const number=tile.dataset.number;
+  trigger.setAttribute('aria-expanded','false');
+  trigger.setAttribute('aria-controls','reel-expanded-'+number);
+  expanded.id='reel-expanded-'+number;
   trigger.addEventListener('click',()=>{
-   if(!expanded.hidden)return;
-   const url=tile.dataset.url, number=tile.dataset.number;
+   if(activeTile===tile){closeTile(tile);activeTile=null;return;}
+   if(activeTile)closeTile(activeTile);
+   const url=tile.dataset.url;
    expanded.innerHTML='<button class="reel-close" type="button">← Back to gallery</button><blockquote class="instagram-media" data-instgrm-permalink="'+url+'" data-instgrm-version="14" style="background:#fff;border:0;width:100%"><a href="'+url+'" target="_blank" rel="noopener">View Reel '+number+' on Instagram</a></blockquote>';
-   expanded.hidden=false;trigger.hidden=true;
-   expanded.querySelector('.reel-close').addEventListener('click',()=>{expanded.hidden=true;expanded.innerHTML='';trigger.hidden=false;});
-   loadInstagram(()=>{if(window.instgrm&&window.instgrm.Embeds)window.instgrm.Embeds.process();});
+   tile.classList.add('is-open');
+   expanded.hidden=false;
+   trigger.hidden=false;
+   trigger.setAttribute('aria-expanded','true');
+   activeTile=tile;
+   expanded.querySelector('.reel-close').addEventListener('click',()=>{
+    closeTile(tile);activeTile=null;trigger.focus();
+   });
+   processInstagram();
   });
  });
 })();
