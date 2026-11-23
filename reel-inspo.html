@@ -1,25 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff"><title>Reel Inspiration · HK & Macau Trip Navigator</title>
 <style>
-.gallery-tools{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#68717d;font-size:12px;font-weight:750;margin:4px 2px 14px}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.reel-tile{min-width:0;border:1px solid #e7ebef;border-radius:15px;padding:8px;background:#fff;box-shadow:0 5px 18px #1018280a}
-.tile-open{display:block;width:100%;border:0;padding:0;background:transparent;color:inherit;text-align:left;cursor:pointer}
-.tile-art{aspect-ratio:3/4;position:relative;overflow:hidden;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:radial-gradient(circle at 80% 18%,#e5a67d 0,transparent 34%),radial-gradient(circle at 18% 80%,#5e7898 0,transparent 42%),linear-gradient(145deg,#172a3d,#34536a 52%,#1d2636)}
-.reel-tile:nth-child(3n+2) .tile-art{background:radial-gradient(circle at 75% 20%,#d3a36e 0,transparent 36%),linear-gradient(145deg,#342d38,#7b5960 55%,#202b3a)}
-.reel-tile:nth-child(3n) .tile-art{background:radial-gradient(circle at 20% 25%,#a2b6a6 0,transparent 36%),linear-gradient(145deg,#1e3941,#52736f 55%,#24323a)}
-.tile-kicker,.tile-bottom{font-size:9px;letter-spacing:.16em;font-weight:850;opacity:.85}
-.tile-number{font-size:clamp(45px,13vw,76px);font-weight:900;letter-spacing:-.08em;line-height:1;margin:12px 0}
-.tile-play{width:42px;height:42px;border:1px solid #ffffffb5;border-radius:50%;display:grid;place-items:center;padding-left:3px;background:#ffffff20;backdrop-filter:blur(5px)}
-.tile-caption{display:block;font-size:12px;font-weight:800;padding:9px 3px 3px}
-.reel-expanded{padding:8px 0 2px}
-.reel-expanded blockquote{margin:0 auto!important;min-width:0!important;width:100%!important}
-.reel-close{border:1px solid #d7dfe8;background:#f4f7fa;color:#26364b;border-radius:20px;padding:7px 11px;font-size:11px;font-weight:800;margin:0 0 9px;cursor:pointer}
-body.dark-mode .reel-tile{background:#1b222c;border-color:#303b49}
-body.dark-mode .reel-close{background:#263343;color:#f3f6fa;border-color:#526174}
-@media(min-width:650px){main{max-width:1000px}.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}}
-@media(max-width:380px){.gallery{gap:8px}.reel-tile{padding:6px}.tile-caption{font-size:11px}}
-
 :root{--ink:#111;--muted:#62666d;--line:#e9e9e9;--blue:#1769b8}*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}header{max-width:1000px;margin:auto;padding:22px 18px 20px;border-bottom:1px solid #eee}.back{display:inline-flex;text-decoration:none;color:#155b9a;background:#f2f7fc;border:1px solid #dce8f5;border-radius:30px;padding:10px 14px;font-size:12px;font-weight:800}.eyebrow{font-size:11px;letter-spacing:.1em;font-weight:850;color:#1769b8;margin-top:18px}h1{font-size:clamp(32px,7vw,50px);line-height:1;letter-spacing:-.05em;margin:9px 0}header p{font-size:14px;line-height:1.55;color:#555e69;max-width:650px}main{max-width:900px;margin:auto;padding:18px}.panel{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 6px 22px #00000008}.reel-card{display:block}.reel-preview{min-width:0;background:#f5f7f9;border-radius:14px;overflow:hidden;min-height:280px;display:flex;align-items:center;justify-content:center}.reel-preview blockquote{margin:0 auto!important;min-width:0!important;width:100%!important}.empty{border:1px dashed #d9e0e8;border-radius:14px;padding:17px;color:#657080;font-size:13px;line-height:1.55;margin-top:14px}.footer{font-size:12px;color:#737982;line-height:1.5;padding:0 18px 28px;max-width:900px;margin:auto}@media(max-width:650px){main{padding:12px}.panel{padding:13px}.reel-card{display:block}.reel-preview{min-height:320px}.reel-info h2{font-size:19px}}
 
 /* Persistent site-wide dark mode */
@@ -54,256 +35,63 @@ body.dark-mode .panel h1,body.dark-mode .panel h2,body.dark-mode .panel h3{color
 /* Icon-only light/dark control */
 .theme-toggle{width:36px;height:36px;min-width:36px;justify-content:center;padding:0;border-radius:50%;font-size:18px;line-height:1}
 .theme-toggle #themeLabel{display:none}
-
-/* Full-width, single-open Reel viewer */
-.reel-tile.is-open{grid-column:1/-1}
-.reel-tile.is-open .tile-open{display:flex;align-items:center;gap:12px;padding:3px 4px 10px}
-.reel-tile.is-open .tile-art{display:none}
-.reel-tile.is-open .tile-caption{padding:7px 4px;font-size:14px}
-.reel-tile.is-open .tile-caption:after{content:" · CLOSE";font-size:10px;letter-spacing:.08em;color:var(--blue);margin-left:auto}
-.reel-expanded{padding:10px 0 2px;border-top:1px solid var(--line)}
-.reel-expanded blockquote{max-width:540px!important}
-.reel-close{display:block;margin:0 0 10px auto}
-.tile-open:focus-visible,.reel-close:focus-visible{outline:3px solid #4b9bea;outline-offset:3px}
-@media(prefers-reduced-motion:no-preference){.reel-tile{transition:box-shadow .18s ease,border-color .18s ease}.reel-tile.is-open{box-shadow:0 8px 28px #10182814}}
-body.dark-mode .reel-expanded{border-color:#303b49}
-
-
-/* Authentic Instagram previews in the compact gallery */
-.tile-art{display:none!important}
-.tile-open{display:block;position:relative}
-.ig-preview{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:10px;background:#f1f2f4}
-.ig-preview iframe{position:absolute;left:0;top:0;width:328px;height:620px;border:0;transform-origin:top left;pointer-events:none}
-.ig-preview:after{content:"";position:absolute;inset:0;background:transparent}
-.tile-caption{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.tile-caption:after{content:"EXPAND";font-size:9px;letter-spacing:.08em;color:var(--blue);font-weight:850}
-.reel-tile.is-open{grid-column:1/-1}
-.reel-tile.is-open .ig-preview{aspect-ratio:auto;height:min(78vh,680px);max-width:540px;margin:auto;background:#fff}
-.reel-tile.is-open .ig-preview iframe{width:100%;height:100%;transform:none;pointer-events:auto;left:0;top:0}
-.reel-tile.is-open .tile-caption:after{content:"CLOSE"}
-body.dark-mode .ig-preview{background:#202936}
-
-
-/* Fit authentic cover images into portrait tiles */
-.ig-preview .ig-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.reel-tile.is-open .ig-preview .ig-cover{display:none}
-.ig-preview:has(.ig-cover):after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000008 55%,#0008)}
-
-
-/* Playback is moved outside the button when expanded, so iframe controls are interactive */
-.reel-tile.is-open .tile-open{display:block}
-.reel-tile.is-open .tile-open .ig-preview{display:none}
-.reel-tile.is-open>.ig-preview{display:block;position:relative;width:100%;height:min(78vh,680px);max-width:540px;margin:10px auto;border-radius:12px;overflow:hidden;background:#000}
-.reel-tile.is-open>.ig-preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:auto;transform:none}
-
 </style></head><body>
 <header><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><a class="back" href="index.html">← Main itinerary</a><div class="eyebrow">TRIP VIDEO PLAYBOOK</div><h1>Reel inspiration.</h1><p>A growing collection of Instagram Reels to revisit when planning travel videos and memories from Hong Kong and Macau.</p></header>
 <main>
-<div class="gallery-tools"><span>21 saved Reels</span><span>Tap any tile to watch</span></div>
-<section class="gallery" aria-label="Reel gallery">
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DeoM_xwAltX/" data-number="21">
-<button class="tile-open" type="button" aria-label="Open Reel 21">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">21</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 21</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DgDEtKaBmN3/" data-number="20">
-<button class="tile-open" type="button" aria-label="Open Reel 20">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">20</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 20</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DaDwiLzJjxn/" data-number="19">
-<button class="tile-open" type="button" aria-label="Open Reel 19">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">19</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 19</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Df9hTP1SrRE/" data-number="18">
-<button class="tile-open" type="button" aria-label="Open Reel 18">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">18</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 18</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DerS8e3hN5g/" data-number="17">
-<button class="tile-open" type="button" aria-label="Open Reel 17">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">17</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 17</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Dca6babi0sf/" data-number="16">
-<button class="tile-open" type="button" aria-label="Open Reel 16">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">16</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 16</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Db7_W3GNfdn/" data-number="15">
-<button class="tile-open" type="button" aria-label="Open Reel 15">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">15</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 15</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Dc2qXlHtyuh/" data-number="14">
-<button class="tile-open" type="button" aria-label="Open Reel 14">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">14</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 14</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DfkDMLeS3OX/" data-number="13">
-<button class="tile-open" type="button" aria-label="Open Reel 13">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">13</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 13</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DehBnWis4a7/" data-number="1">
-<button class="tile-open" type="button" aria-label="Open Reel 1">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">01</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 1</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Dc9LUXLAHkc/" data-number="2">
-<button class="tile-open" type="button" aria-label="Open Reel 2">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">02</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 2</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DePn1BoT81H/" data-number="3">
-<button class="tile-open" type="button" aria-label="Open Reel 3">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">03</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 3</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/Dd_t1f2zWJG/" data-number="4">
-<button class="tile-open" type="button" aria-label="Open Reel 4">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">04</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 4</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DedQuh7znOl/" data-number="5">
-<button class="tile-open" type="button" aria-label="Open Reel 5">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">05</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 5</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DfKqf16BB80/" data-number="6">
-<button class="tile-open" type="button" aria-label="Open Reel 6">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">06</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 6</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DaHgVk9v1Ih/" data-number="12">
-<button class="tile-open" type="button" aria-label="Open Reel 12">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">12</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 12</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DcYFVfJMjZP/" data-number="11">
-<button class="tile-open" type="button" aria-label="Open Reel 11">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">11</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 11</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DdlTFVeJjwn/" data-number="10">
-<button class="tile-open" type="button" aria-label="Open Reel 10">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">10</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 10</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DcuYF9mS_4L/" data-number="9">
-<button class="tile-open" type="button" aria-label="Open Reel 9">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">09</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 9</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DdMCzRxhiNK/" data-number="8">
-<button class="tile-open" type="button" aria-label="Open Reel 8">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">08</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 8</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
-<article class="reel-tile" data-url="https://www.instagram.com/reel/DfwwhKayXy9/" data-number="7">
-<button class="tile-open" type="button" aria-label="Open Reel 7">
-<span class="tile-art"><span class="tile-kicker">INSTAGRAM REEL</span><span class="tile-number">07</span><span class="tile-play" aria-hidden="true">▶</span><span class="tile-bottom">TAP TO WATCH</span></span>
-<span class="tile-caption">Reel 7</span></button>
-<div class="reel-expanded" hidden></div>
-</article>
+<section class="panel">
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DeoM_xwAltX/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DeoM_xwAltX/" target="_blank" rel="noopener">View Reel 21 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DgDEtKaBmN3/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DgDEtKaBmN3/" target="_blank" rel="noopener">View Reel 20 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DaDwiLzJjxn/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DaDwiLzJjxn/" target="_blank" rel="noopener">View Reel 19 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Df9hTP1SrRE/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Df9hTP1SrRE/" target="_blank" rel="noopener">View Reel 18 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DerS8e3hN5g/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DerS8e3hN5g/" target="_blank" rel="noopener">View Reel 17 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Dca6babi0sf/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Dca6babi0sf/" target="_blank" rel="noopener">View Reel 16 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Db7_W3GNfdn/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Db7_W3GNfdn/" target="_blank" rel="noopener">View Reel 15 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Dc2qXlHtyuh/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Dc2qXlHtyuh/" target="_blank" rel="noopener">View Reel 14 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DfkDMLeS3OX/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DfkDMLeS3OX/" target="_blank" rel="noopener">View Reel 13 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DehBnWis4a7/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DehBnWis4a7/" target="_blank" rel="noopener">View Reel 01 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Dc9LUXLAHkc/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Dc9LUXLAHkc/" target="_blank" rel="noopener">View Reel 02 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DePn1BoT81H/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DePn1BoT81H/" target="_blank" rel="noopener">View Reel 03 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Dd_t1f2zWJG/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/Dd_t1f2zWJG/" target="_blank" rel="noopener">View Reel 04 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DedQuh7znOl/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DedQuh7znOl/" target="_blank" rel="noopener">View Reel 05 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DfKqf16BB80/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DfKqf16BB80/" target="_blank" rel="noopener">View Reel 06 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DaHgVk9v1Ih/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DaHgVk9v1Ih/" target="_blank" rel="noopener">View Reel 12 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DcYFVfJMjZP/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DcYFVfJMjZP/" target="_blank" rel="noopener">View Reel 11 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DdlTFVeJjwn/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DdlTFVeJjwn/" target="_blank" rel="noopener">View Reel 10 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DcuYF9mS_4L/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DcuYF9mS_4L/" target="_blank" rel="noopener">View Reel 09 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DdMCzRxhiNK/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DdMCzRxhiNK/" target="_blank" rel="noopener">View Reel 08 on Instagram</a></blockquote></div></div>
+<div style="height:14px"></div>
+<div class="reel-card"><div class="reel-preview"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DfwwhKayXy9/" data-instgrm-version="14" style="background:#fff;border:0;max-width:540px;width:100%"><a href="https://www.instagram.com/reel/DfwwhKayXy9/" target="_blank" rel="noopener">View Reel 07 on Instagram</a></blockquote></div></div>
 </section>
 </main><footer class="footer">Saved references are links to the original Instagram content; playback and embed availability are controlled by Instagram.</footer>
-<script>
-(function(){
- const tiles=[...document.querySelectorAll('.reel-tile')];
- let active=null;
- function preview(tile){
-  const shell=tile.querySelector('.ig-preview');
-  if(shell.dataset.loaded)return;
-  shell.dataset.loaded='1';
-  const url=tile.dataset.url;
-  fetch('https://www.instagram.com/api/v1/oembed/?url='+encodeURIComponent(url),{credentials:'omit'})
-   .then(response=>{if(!response.ok)throw new Error('Thumbnail unavailable');return response.json();})
-   .then(data=>{
-    if(tile.classList.contains('is-open')||!data.thumbnail_url)return;
-    const img=document.createElement('img');
-    img.src=data.thumbnail_url;img.alt='Original Instagram preview for Reel '+tile.dataset.number;
-    img.loading='lazy';img.referrerPolicy='no-referrer';img.className='ig-cover';
-    shell.replaceChildren(img);
-   })
-   .catch(()=>{ /* Keep the designed tile fallback if Instagram blocks thumbnail access. */ });
- }
- function play(tile){
-  const shell=tile.querySelector('.ig-preview');
-  const frame=document.createElement('iframe');
-  frame.src=tile.dataset.url+'embed/';
-  frame.title='Play Instagram Reel '+tile.dataset.number;
-  frame.allow='autoplay; encrypted-media; picture-in-picture; web-share';
-  frame.referrerPolicy='strict-origin-when-cross-origin';
-  frame.setAttribute('allowfullscreen','');
-  frame.setAttribute('scrolling','no');
-  shell.replaceChildren(frame);
-  frame.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:auto;transform:none';
- }
- const observer=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){preview(e.target);observer.unobserve(e.target);}});
- },{rootMargin:'250px'}):null;
- tiles.forEach(tile=>{
-  const trigger=tile.querySelector('.tile-open');
-  const number=tile.dataset.number;
-  const shell=document.createElement('div');shell.className='ig-preview';
-  shell.setAttribute('aria-label','Instagram preview for Reel '+number);
-  trigger.querySelector('.tile-art').replaceWith(shell);
-  trigger.setAttribute('aria-expanded','false');
-  trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
-  if(observer)observer.observe(tile);else preview(tile);
-  trigger.addEventListener('click',()=>{
-   if(active===tile){
-    tile.classList.remove('is-open');
-    trigger.setAttribute('aria-expanded','false');
-    trigger.setAttribute('aria-label','Expand Reel '+number+' preview');
-    shell.remove();
-    trigger.insertBefore(shell,trigger.querySelector('.tile-caption'));
-    shell.replaceChildren();
-    delete shell.dataset.loaded;
-    preview(tile);
-    active=null;
-    return;
-   }
-   if(active){
-    const old=active,oldTrigger=old.querySelector('.tile-open'),oldShell=old.querySelector('.ig-preview');
-    old.classList.remove('is-open');
-    oldTrigger.setAttribute('aria-expanded','false');
-    oldShell.remove();oldTrigger.insertBefore(oldShell,oldTrigger.querySelector('.tile-caption'));
-    oldShell.replaceChildren();delete oldShell.dataset.loaded;preview(old);
-   }
-   active=tile;
-   tile.classList.add('is-open');
-   trigger.setAttribute('aria-expanded','true');
-   trigger.setAttribute('aria-label','Collapse Reel '+number+' preview');
-   shell.remove();
-   tile.insertBefore(shell,tile.querySelector('.reel-expanded'));
-   play(tile);
-  });
- });
-})();
-</script>
+<script async src="https://www.instagram.com/embed.js"></script>
 <script>
 (function(){
  const key='hkMacauTheme2026';
