@@ -11,10 +11,54 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 'DM Sans',sans-serif}a{color:var(--green)}button{font:inherit;cursor:pointer}.wrap{width:min(1120px,calc(100% - 36px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}.brand{font-weight:700;letter-spacing:.02em}.brand span{color:var(--orange)}.nav{display:flex;gap:18px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--muted);font-size:13px}.hero{position:relative;min-height:510px;border-radius:28px;overflow:hidden;color:white;background:linear-gradient(90deg,#14231dcc,#14231d30),url('https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2000&q=85') center/cover;display:flex;align-items:end;padding:clamp(28px,6vw,68px);box-shadow:var(--shadow)}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:700;color:#e8c9a7}.hero h1{font:700 clamp(44px,8vw,82px)/.98 'Playfair Display',serif;margin:16px 0;max-width:700px}.hero p{max-width:590px;color:#f5f3ec;font-size:16px}.pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}.pill{border:1px solid #ffffff75;background:#ffffff18;border-radius:30px;padding:7px 12px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 56px}.stat,.panel,.daycard,.place{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.stat strong{font-size:20px}.section{margin:56px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.kicker{color:var(--orange);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em}.section h2{font:700 clamp(30px,4vw,43px)/1.1 'Playfair Display',serif;margin:5px 0}.sub{color:var(--muted);max-width:640px}.daynav{display:flex;gap:8px;overflow:auto;padding:4px 0 14px}.daynav button{white-space:nowrap;border:1px solid var(--line);background:var(--paper);border-radius:30px;padding:10px 15px;color:var(--muted)}.daynav button.active{background:var(--green);color:white;border-color:var(--green)}.daylayout{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.daycard{padding:0;overflow:hidden}.dayimage{height:260px;background-size:cover;background-position:center}.daybody{padding:24px}.daybody h3{font:700 28px 'Playfair Display',serif;margin:4px 0}.daymeta{font-size:12px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.1em}.timeline{display:grid;gap:0;margin-top:20px}.stop{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:13px 0;border-top:1px solid var(--line)}.time{font-size:12px;color:var(--green);font-weight:700}.stop p{margin:2px 0;color:var(--muted);font-size:13px}.side{display:grid;gap:14px;align-content:start}.panel h3{margin:0 0 10px;font:700 21px 'Playfair Display',serif}.panel p{color:var(--muted);font-size:13px;margin:5px 0}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:30px;background:var(--green);color:white;padding:10px 15px;font-size:13px;font-weight:600;border:0}.btn.light{background:var(--lime);color:var(--green)}.places{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.place{padding:0;overflow:hidden}.place img{width:100%;height:170px;object-fit:cover;display:block}.place div{padding:16px}.place h3{font:700 20px 'Playfair Display',serif;margin:0 0 6px}.place p{font-size:13px;color:var(--muted);margin:0 0 12px}.budget{display:grid;grid-template-columns:1fr 1fr;gap:16px}.budgetline{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.budgetline input{width:90px;border:1px solid var(--line);border-radius:8px;padding:6px;background:white}.total{font:700 32px 'Playfair Display',serif;color:var(--green);margin-top:14px}.checklist{display:grid;gap:10px}.checklist label{display:flex;gap:10px;align-items:start;font-size:14px}.checklist input{accent-color:var(--green);margin-top:5px}.foot{padding:35px 0 55px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.tag{display:inline-block;background:var(--lime);color:var(--green);padding:4px 9px;border-radius:30px;font-size:11px;font-weight:700}.warning{background:#fff5e9;border:1px solid #f1dfc6;border-radius:14px;padding:14px;color:#79532f;font-size:13px}.mobile-menu{display:none}
 @media(max-width:760px){.nav{display:none}.hero{min-height:470px;border-radius:20px}.stats{grid-template-columns:repeat(2,1fr);margin-bottom:42px}.daylayout,.budget{grid-template-columns:1fr}.places{grid-template-columns:1fr 1fr}.dayimage{height:210px}.section{margin:42px 0}.section-head{display:block}}
 @media(max-width:460px){.places{grid-template-columns:1fr}.wrap{width:min(100% - 24px,1120px)}.hero{padding:24px}.stat strong{font-size:17px}}
+
+/* Match the Hong Kong & Macau Trip Navigator editorial design system */
+:root{--navy:#101010;--blue:#1769b8;--bg:#fff;--line:#e8e8e8;--muted:#5f6268;--red:#d71920}
+body{background:#fff;color:#111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.site-header{background:#fff;color:#111;border-bottom:1px solid #eee;padding:18px 20px 28px}
+.header-inner{max-width:1080px;margin:auto}
+.topnav{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brandmark{font-size:28px;color:#1769b8;font-weight:900;text-decoration:none}
+.header-tools{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.navlinks{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.navlinks a{display:inline-flex;align-items:center;background:#fff;color:#1769b8;border:1px solid #dce8f5;border-radius:30px;padding:9px 13px;font-size:12px;font-weight:800;text-decoration:none}
+.navlinks a.primary{background:#1769b8;color:#fff;border-color:#1769b8}
+.site-header h1{font-size:clamp(34px,7vw,66px);line-height:.98;letter-spacing:-.055em;font-weight:850;margin:34px 0 14px;max-width:780px;color:#111}
+.site-header h1 .accent{color:#d71920}
+.site-header p{color:#3e4248;font-size:clamp(15px,2vw,20px);line-height:1.55;max-width:620px;margin:0}
+.site-header .heroimage{display:block;width:100%;height:clamp(190px,36vw,390px);object-fit:cover;border-radius:18px;margin:26px auto 0}
+.wrap{width:min(1080px,calc(100% - 36px));margin:auto}
+main{max-width:1080px;padding:22px 18px 40px}
+.stat,.panel,.daycard,.place{background:#fff;border:1px solid #e9e9e9;border-radius:18px;box-shadow:0 6px 22px #00000008}
+.stat{padding:18px}.stat small{color:#737780}.stat strong{color:#111}
+.section{margin:48px 0}.kicker{color:#1769b8}.section h2{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:850;letter-spacing:-.045em;color:#111}
+.sub,.panel p,.place p{color:#707780}
+.daynav button{border:1px solid #dce8f5;background:#f2f7fc;color:#155b9a;border-radius:30px;font-weight:800}
+.daynav button.active{background:#1769b8;color:#fff;border-color:#1769b8}
+.daycard{overflow:hidden}.daybody h3,.panel h3,.place h3{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:800;letter-spacing:-.025em;color:#111}
+.daymeta,.time{color:#1769b8}.stop{border-color:#ededed}.btn{background:#1769b8;border-radius:30px}.btn.light{background:#f2f7fc;color:#155b9a;border:1px solid #dce8f5}
+.warning{border-radius:14px}.budgetline input{border:1px solid #dce3ec}.total{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#1769b8}
+.foot{color:#69788b}
+.theme-toggle{width:36px;height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #cbd5e1;border-radius:50%;background:#fff;color:#26364b;font-size:18px;line-height:1;cursor:pointer}
+body.dark-mode{background:#11151b;color:#edf1f6}
+body.dark-mode .site-header{background:#151b23;color:#edf1f6;border-color:#29313d}
+body.dark-mode .site-header h1,body.dark-mode .daybody h3,body.dark-mode .panel h3,body.dark-mode .place h3,body.dark-mode .stat strong,body.dark-mode .section h2{color:#edf1f6}
+body.dark-mode .site-header p,body.dark-mode .sub,body.dark-mode .panel p,body.dark-mode .place p,body.dark-mode .foot{color:#b5c0ce}
+body.dark-mode .stat,body.dark-mode .panel,body.dark-mode .daycard,body.dark-mode .place{background:#1b222c;color:#edf1f6;border-color:#303b49;box-shadow:0 4px 18px #0005}
+body.dark-mode .daynav button{background:#202d3d;color:#a9d2ff;border-color:#3b526d}
+body.dark-mode .daynav button.active,body.dark-mode .btn{background:#1769b8;color:#fff}
+body.dark-mode .btn.light{background:#202d3d;color:#a9d2ff;border-color:#3b526d}
+body.dark-mode .stop{border-color:#303b49}
+body.dark-mode .budgetline input{background:#202936;color:#edf1f6;border-color:#3a4656}
+body.dark-mode .warning{background:#30271c;color:#f2d7ad;border-color:#59452c}
+body.dark-mode .theme-toggle{background:#263343;color:#f3f6fa;border-color:#526174}
+@media(max-width:760px){.site-header{padding:16px 18px 24px}.site-header h1{margin-top:35px}.header-tools{gap:7px}.navlinks a{padding:8px 10px;font-size:11px}.site-header .heroimage{margin-top:22px;border-radius:14px}main{padding:14px 12px 30px}.section{margin:40px 0}}
+@media(max-width:460px){.wrap{width:calc(100% - 24px)}.header-tools{max-width:88%}.navlinks{gap:5px}.navlinks a{padding:7px 8px;font-size:10px}.theme-toggle{width:32px;height:32px;min-width:32px}}
+
 </style>
 </head>
 <body>
-<header class="wrap top"><div class="brand">DA NANG <span> / </span> TRIP NAVIGATOR</div><nav class="nav"><a href="#itinerary">Itinerary</a><a href="#highlights">Highlights</a><a href="#food">Food & cafés</a><a href="#budget">Budget</a><a href="#prep">Checklist</a></nav></header>
+<header class="site-header"><div class="header-inner"><div class="topnav"><a class="brandmark" href="#welcome" aria-label="Da Nang Trip Navigator home">◈</a><div class="header-tools"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon">☾</span></button><nav class="navlinks"><a class="primary" href="#itinerary">Itinerary</a><a href="#food">Food</a><a href="#highlights">Explore</a><a href="#budget">Budget</a><a href="#prep">Checklist</a></nav></div></div><h1 id="welcome">Explore <span class="accent">Da Nang</span><br>& Hoi An</h1><p>Six days of coastal views, local food, mountain scenery and lantern-lit streets. Your January 2027 travel companion.</p><img class="heroimage" src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1800&q=85" alt="Vietnam coastal landscape"></div></header>
 <main class="wrap">
 <section class="hero"><div><div class="eyebrow">Central Vietnam · 7—12 January 2027</div><h1>Six days.<br>One beautiful coast.</h1><p>A relaxed, photo-first escape for a group of five or more — beach mornings, mountain views, lantern-lit Hoi An and plenty of good Vietnamese food.</p><div class="pills"><span class="pill">5 nights · 6 days</span><span class="pill">Group of 5+</span><span class="pill">Hotel base: Son Tra</span><span class="pill">Target: under €200 pp*</span></div></div></section>
 <div class="stats"><div class="stat"><small>Stay</small><strong>Cordial Beach Hotel</strong></div><div class="stat"><small>Home base</small><strong>30 Loseby Street</strong></div><div class="stat"><small>Trip pace</small><strong>Relaxed + flexible</strong></div><div class="stat"><small>Budget target</small><strong>€150–190 pp*</strong></div></div>
@@ -54,5 +98,27 @@ function total(){let n=costs.reduce((s,c,i)=>s+(+document.getElementById('cost'+
 costs.forEach((_,i)=>document.getElementById('cost'+i).addEventListener('input',total));document.getElementById('resetbudget').addEventListener('click',()=>{costs.forEach((c,i)=>document.getElementById('cost'+i).value=c[1]);total()});total();
 const checks=['Confirm flight arrival and departure times','Confirm hotel dates, breakfast and room configuration','Arrange airport transfer for the whole group','Compare 7-seater / 16-seater quotes for day trips','Check Ba Na Hills ticket prices and weather before booking','Save hotel and attractions in Google Maps','Prepare Vietnamese dong and a small amount of cash','Pack comfortable walking shoes and a light rain layer'];
 const list=document.getElementById('checklist');list.innerHTML=checks.map((t,i)=>'<label><input type="checkbox" data-check="'+i+'"><span>'+t+'</span></label>').join('');list.querySelectorAll('input').forEach((el)=>el.addEventListener('change',()=>{el.parentElement.style.textDecoration=el.checked?'line-through':'none';el.parentElement.style.opacity=el.checked?'.55':'1'}));
+</script>
+
+<script>
+(function(){
+ const key='daNangNavigatorTheme2027';
+ const btn=document.getElementById('themeToggle');
+ const apply=mode=>{
+  const dark=mode==='dark';
+  document.body.classList.toggle('dark-mode',dark);
+  btn.setAttribute('aria-pressed',String(dark));
+  btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+  document.getElementById('themeIcon').textContent=dark?'☀':'☾';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#11151b':'#ffffff');
+ };
+ let saved=null;try{saved=localStorage.getItem(key)}catch(e){}
+ apply(saved==='dark'?'dark':'light');
+ btn.addEventListener('click',()=>{
+  const next=document.body.classList.contains('dark-mode')?'light':'dark';
+  try{localStorage.setItem(key,next)}catch(e){}
+  apply(next);
+ });
+})();
 </script>
 </body></html>
